@@ -1,0 +1,127 @@
+/* ================================
+🌍 Base CSS (Reset + Essentials)
+================================ */
+
+/* Reset أساسي */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* ألوان ثابتة */
+:root {
+--primary: #007c8b;   /* اللون الرئيسي */
+--secondary: #89a358; /* اللون الثانوي */
+--dark: #333;
+--light: #f9f9f9;
+--text: #222;
+--thaird:#e6f7f7;
+--fourth:#f7f8e6;
+}
+
+/* جسم الصفحة */
+body {
+font-family: "Changa", sans-serif;
+line-height: 1.6;
+background: var(--light);
+color: var(--text);
+}
+
+/* الحاوية الأساسية */
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px;
+}
+
+/* الروابط */
+a {
+text-decoration: none;
+color: inherit;
+transition: 0.3s;
+}
+
+a:hover {
+color: var(--primary);
+}
+
+/* الأزرار */
+button {
+cursor: pointer;
+border: none;
+border-radius: 8px;
+padding: 10px 20px;
+background: var(--primary);
+color: white;
+font-size: 16px;
+transition: 0.3s;
+}
+
+button:hover {
+opacity: 0.9;
+}
+
+/* الصور */
+img {
+max-width: 100%;
+height: auto;
+display: block;
+}
+
+/* الهيدر والفوتر */
+header, footer {
+background: var(--dark);
+color: white;
+padding: 15px;
+text-align: center;
+}
+
+/* ================================
+📱 Media Queries (Responsive)
+================================ */
+
+/* موبايل صغير (أقل من 576px) */
+@media (max-width: 576px) {
+body {
+    font-size: 14px;
+}
+
+.container {
+    padding: 0 10px;
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+}
+
+/* تابلت (576px لحد 768px) */
+@media (min-width: 576px) and (max-width: 768px) {
+body {
+    font-size: 15px;
+}
+
+.container {
+    padding: 0 15px;
+}
+}
+
+/* لاب توب (768px لحد 1200px) */
+@media (min-width: 768px) and (max-width: 1200px) {
+body {
+    font-size: 16px;
+}
+
+.container {
+    max-width: 1000px;
+}
+}
+
+/* شاشات كبيرة (أكبر من 1200px) */
+@media (min-width: 1200px) {
+body {
+    font-size: 18px;
+}
+}
