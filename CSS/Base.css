@@ -37,9 +37,9 @@ padding: 0 20px;
 
 /* الروابط */
 a {
-text-decoration: none;
-color: inherit;
-transition: 0.3s;
+text-decoration: none !important;
+color: inherit ;
+transition: 0.3s !important;
 }
 
 a:hover {
@@ -76,6 +76,279 @@ color: white;
 padding: 15px;
 text-align: center;
 }
+
+header{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px;
+    background-color: #fff;
+}
+.h-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    padding: 10px 100px;
+}
+
+.h-top .logo img{
+    height: 80px;
+}
+
+.h-top .contact-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    color: black;
+}
+
+.h-top .mail,.phone,.location{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.h-top .mail i,.phone i,.location i{
+    color: var(--secondary);
+}
+
+.h-top button{
+    border-radius: 30px;
+    transition:0.5s;
+}
+.h-top button:hover{
+    background-color:var(--secondary);
+}
+
+
+.h-bottom{
+    padding:0px 100px;
+    background-color: var(--primary);
+    color: #fff !important;
+}
+
+.h-bottom .navbar{
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
+    --bs-navbar-color:#ffff;
+    --bs-navbar-active-color:#89a358;
+    --bs-navbar-hover-color:#89a358;
+}
+
+.h-bottom .navbar .h-social{
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.h-bottom .navbar .h-social a{
+    color: #fff;
+}
+
+.h-bottom .navbar .h-social a:hover{
+    color: var(--secondary);
+}
+
+/*------------ شركاء النجاح -------------*/
+.partners-section {
+    background-color: white;
+    padding: 100px 0;
+    overflow: hidden;
+    text-align: center;
+}
+.partners-section h2{
+    margin: 0;
+    font-weight: 600;
+    color: var(--primary);
+
+}
+.partners-section p{
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.partners-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.partners-track {
+    margin-top: 50px;
+    display: flex;
+    width: fit-content;
+    animation: scrollLoop 50s linear infinite;
+}
+.partners-track:hover {
+    animation-play-state: paused;
+}
+
+.logo-group {
+    display: flex;
+}
+
+.logo-group img {
+    height: 100px;
+    margin: 0 40px;
+    width: 200px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+@keyframes scrollLoop {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* نهايه سليدر شركاء النجاح*/
+
+
+
+.footer {
+    background-color: #e6f7f7;
+    color: #034e6e;
+    padding: 50px 0 20px;
+    font-family: 'Arial', sans-serif;
+    text-align: right;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    align-items: center;
+    flex-direction: row-reverse;
+    padding: 10px;
+}
+
+.footer-logo img {
+    height: 250px;
+    width: 250px;
+}
+
+.footer-about, .footer-form {
+flex: 1;
+min-width: 250px;
+}
+
+.footer-about h3, .footer-form h3 {
+margin-bottom: 15px;
+}
+
+.footer-about p {
+margin-bottom: 20px;
+line-height: 1.6;
+}
+
+.contact-cards {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+.contact-card {
+border: dashed 2px var(--primary);
+background-color:#f7f8e6;
+color: var(--secondary);
+padding: 15px;
+border-radius: 10px;
+display: flex;
+align-items: center;
+    justify-content: center;
+gap: 10px;
+transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.contact-card i {
+font-size: 20px;
+color: #012e41;
+}
+
+.contact-card:hover {
+transform: translateY(-5px) scale(1.02);
+background-color: var(--primary);
+color: #fff;
+}
+
+.contact-card:hover i {
+color: var(--secondary);
+}
+
+.footer-form form {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+.footer-form input, .footer-form textarea {
+padding: 10px;
+border: none;
+border-radius: 5px;
+width: 100%;
+font-size: 16px;
+    text-align: right;
+}
+
+.footer-form textarea {
+min-height: 100px;
+resize: vertical;
+}
+
+.footer-form button {
+padding: 12px;
+background-color: var(--primary);
+color: var(--thaird);
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+transition: background-color 0.3s ease;
+}
+
+.footer-form button:hover {
+background-color: #12d9ef;
+}
+
+.footer-social {
+margin-top: 40px;
+text-align: center;
+}
+
+.social-links a {
+color: #012e41;
+margin: 0 10px;
+font-size: 20px;
+transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+color: #f4b400;
+}
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 30px;
+    border-top: 1px solid #ffffff33;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.footer-bottom a{
+    text-decoration: none;
+    color: #cccccc;
+}
+
 
 /* ================================
 📱 Media Queries (Responsive)

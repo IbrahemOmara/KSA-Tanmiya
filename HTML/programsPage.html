@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <title>جمعيه التنميه الاهليه بأم الساهك</title>
+    <title>برامجنا - جمعيه التنميه الاهليه بأم الساهك</title>
     <link rel="shortcut icon" href="/logo/شعار الجمعية شفاف.png" type="image/x-icon">
     <link rel="stylesheet" href="/CSS/Base.css">
-    <link rel="stylesheet" href="/CSS/home.css">
+    <link rel="stylesheet" href="/CSS/programs.css">
     <!-- CSS Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -42,16 +42,16 @@
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">الرئيسيه</a>
+                        <a class="nav-link " aria-current="page" href="/HTML/index.html">الرئيسيه</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#">خدماتنا</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">برامجنا</a>
+                        <a class="nav-link active" href="#">برامجنا</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">اخبارنا</a>
+                        <a class="nav-link" href="/HTML/newsPage.html">اخبارنا</a>
                         </li>
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,134 +82,58 @@
 
     <!------------------- sec 1 ------------------>
     <section class="sec1">
-        <div class="sec1-container">
+        <h1>برامجنا </h1>
 
-            <div class="right">
-                <div class="num-1">
-                    <i class="fa-regular fa-heart fa-beat fa-xl"></i>
-                    <h2>709</h2>
-                    <span>متطوع</span>
-                </div>
-                <div class="num-2">
-                    <i class="fa-regular fa-star fa-xl"></i>
-                    <h2>3,690</h2>
-                    <span>مستفيد في ٢٠٢٥م</span>
+        <div class="row row-cols-1 row-cols-md-3 g-4 news-cards">
+            <div class="col">
+            <div class="card h-100">
+                <img src="/images/مَعرض-التخصصات.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">معرض التخصصات</h5>
+                    <p>برنامج يهدف لتوعية طلاب وخريجي المرحلة الثانوية بتخصصات المرحلة الجامعية.</p>
                 </div>
             </div>
-
-
-            <div id="carouselExampleIndicators" class="carousel slide">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                    <img src="/images/slide1.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                    <img src="/images/slide2.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                    <img src="/logo/الشعار بالعرض.jpg" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
 
+            <div class="col">
+            <div class="card h-100">
+                <img src="/images/مدينة-القيم.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">مدينة القيم</h5>
+                    <p>برنامج لفتيات المرحلة الابتدائية، يهدف لتعزيز القيم، وشغل أوقات الفتيات بما ينفعهم.</p>
+                </div>
+            </div>
+            </div>
 
+            <div class="col">
+            <div class="card h-100">
+                <img src="/images/زكاء.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">زكاء</h5>
+                    <p>مبادرة تهدف للتذكير باستغلال مواسم الطاعة، كرمضان وعشر ذي الحجة.</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="col">
+            <div class="card h-100">
+                <img src="/images/news4.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">رَواح</h5>
+                    <p>لقاءات شهرية للفتيات، تعنى بجوانب فكرية وذاتية واجتماعيّة بطابع ودّي قريب لنفوسهنّ.</p>
+                </div>
+            </div>
+            </div>
         </div>
     </section>
+
+
+
+
 
 
     <!---------------- sec2 --------------->
-    <section class="sec2" id="services">
-        <h1>خدماتنا</h1>
-        <hr>
-        <div class="sec2-cards">
-            <div class="card mb-3">
-                <img src="/images/people-group-solid-full (1).svg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">برامج تنموية</h5>
-                    <p class="card-text">الى تمكين مجتمع أم الساهك من خلال برامج تنموية
-                    نسعى
-                    واجتماعية تُلبي احتياجات الأفراد والأسر بمختلف فئاتهم
-                    حيث نقدم خدمات متنوعة تشمل البرامج التنموية والتوعوية
-                    التي تعزز القيم المجتمعية وتدعم التطوع ، والمبادرات
-                    المجتمعية التي تعزز الترابط الاجتماعي ..</p>
-                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <img src="/images/file-lines-regular-full.svg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">الفريق التطوعي</h5>
-                    <p class="card-text">نهدف إلى نشر ثقافة العمل التطوعي وتعزيز القيم الإنسانية
-                        من خلال مبادرات مجتمعية فعالة ، يضم الفريق نخبة من
-                        المتطوعين والمتطوعات الذين يجتمعون على هدف صناعة
-                        أثر إيجابي في المجتمع ، ورسم الابتسامة على وجوه
-                        الآخرين بالعطاء .</p>
-                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!---------------- sec3 --------------->
-    <section class="sec3">
-        <h1>برامجنا</h1>
-        <hr>
-        <div class="sec3-cards">
-            <div class="row row-cols-1 row-cols-md-4 g-4">
-                <div class="col">
-                    <div class="card h-100">
-                    <img src="/images/رَواح.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">رَواح</h5>
-                        <p class="card-text">لقاءات شهرية للفتيات، تعنى بجوانب فكرية وذاتية واجتماعيّة بطابع ودّي قريب لنفوسهنّ.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100">
-                    <img src="/images/زكاء.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">زكاء</h5>
-                        <p class="card-text">مبادرة تهدف للتذكير باستغلال مواسم الطاعة، كرمضان وعشر ذي الحجة.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100">
-                    <img src="/images/مدينة-القيم.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">مدينة القيم</h5>
-                        <p class="card-text">برنامج لفتيات المرحلة الابتدائية، يهدف لتعزيز القيم، وشغل أوقات الفتيات بما ينفعهم.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100">
-                    <img src="/images/مَعرض-التخصصات.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">معرض التخصصات</h5>
-                        <p class="card-text">برنامج يهدف لتوعية طلاب وخريجي المرحلة الثانوية بتخصصات المرحلة الجامعية.</p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button type="button">عرض جميع البرامج</button>
-    </section>
+    
 
     <!---------- شركاء النجاح  ------------>
 <section class="partners-section">
@@ -315,9 +239,8 @@
 
     <!-- JS Bootstrap (مع Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+    <script >
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault(); // امنع الإرسال العادي
             const form = this;
             fetch(form.action, {
@@ -337,6 +260,6 @@
             alert("حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
             });
         });
-    </script>
+        </script>
 </body>
 </html>
