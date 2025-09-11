@@ -84,6 +84,19 @@ header{
     padding: 0px;
     background-color: #fff;
 }
+/* تنسيق القائمة الفرعية */
+.dropdown-submenu {
+position: relative;
+}
+.dropdown-menu .active{
+    --bs-dropdown-link-active-bg:var(--primary);
+}
+.dropdown-submenu .dropdown-menu {
+top: 0;
+right: 100%; /* لو عايزها شمال: left:100%; right:auto; */
+left: auto;
+margin-top: 0;
+}
 .h-top{
     display: flex;
     align-items: center;
