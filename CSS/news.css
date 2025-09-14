@@ -34,7 +34,9 @@ background-image: url("data:image/svg+xml,%3Csvg width='180' height='180' viewBo
 .sec1 .row .card{
     height: 350px !important;
 }
-
+.news-cards{
+    width: 100%;
+}
 
 .sec1 .row h5{
     font-size: 1.4em;

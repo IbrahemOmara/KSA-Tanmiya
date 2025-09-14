@@ -53,6 +53,7 @@ html, body{
 }
 
 .sec1 .file-list .card{
+    width: 22rem;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border: none;

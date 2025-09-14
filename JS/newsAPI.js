@@ -44,7 +44,10 @@ fetch("https://tanmia.nasatechnology.net/api/Our_news")
     })
     .then(data => {
     newsCards.innerHTML = "";
-    data.forEach(news => {
+     // هنا بنفلتر الداتا ونخلي بس اللي isActive = 1
+    const activeNews = data.filter(news => news.isActive == 1);
+    
+    activeNews.forEach(news => {
         const newsCard = document.createElement("div");
         newsCard.className = "col";
         newsCard.innerHTML = `
@@ -79,25 +82,29 @@ fetch("https://tanmia.nasatechnology.net/api/Our_news")
 
 
 
+
+
+
+
 //------------form-------------
 
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // امنع الإرسال العادي
-            const form = this;
-            fetch(form.action, {
-            method: "POST",
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-            }).then(response => {
-            if (response.ok) {
-                form.style.display = 'none'; // اخفي الفورم
-                const msg = document.createElement('div');
-                msg.innerHTML = "<h3 style='color: #4CAF50;'>تم إرسال رسالتك بنجاح! سنرد عليك قريبًا.</h3>";
-                form.parentNode.appendChild(msg);
-            } else {
-                alert("حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
-            }
-            }).catch(error => {
-            alert("حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
-            });
-        });
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // امنع الإرسال العادي
+    const form = this;
+    fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+    }).then(response => {
+    if (response.ok) {
+        form.style.display = 'none'; // اخفي الفورم
+        const msg = document.createElement('div');
+        msg.innerHTML = "<h3 style='color: #4CAF50;'>تم إرسال رسالتك بنجاح! سنرد عليك قريبًا.</h3>";
+        form.parentNode.appendChild(msg);
+    } else {
+        alert("حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
+    }
+    }).catch(error => {
+    alert("حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
+    });
+});
