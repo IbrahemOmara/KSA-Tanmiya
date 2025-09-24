@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             activePartners.forEach(logo => {
                 const image = document.createElement("img");
-                image.src = "/logo/شعار الجمعية شفاف.png"; // أو logo.imageUrl من API لو موجود
+                image.src = logo.partnerUrl; // أو logo.imageUrl من API لو موجود
                 image.alt = logo.partnerName;
                 partners.appendChild(image);
             });
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             activePartners.forEach(logo => {
                 const image = document.createElement("img");
-                image.src = "/logo/شعار جمعية أم الساهك أسود.jpg";
+                image.src = logo.partnerUrl;
                 image.alt = logo.partnerName;
                 partners2.appendChild(image);
             });

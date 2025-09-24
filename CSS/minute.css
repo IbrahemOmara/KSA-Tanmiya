@@ -55,6 +55,7 @@ html, body{
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border: none;
+    width: 25rem;
     border-left: solid 5px var(--primary) ;
 }
 .sec1 .file-list img{
@@ -83,4 +84,9 @@ html, body{
 .sec1 .file-list .card-body .info a:hover{
     background-color: #007c8b;
     color: #fff;
+}
+.card-text{
+    word-wrap: break-word;   /* يكسر الكلمة الطويلة */
+    white-space: normal;     /* يخلي النص يلف */
+    overflow-wrap: anywhere; /* يضمن الكسر في أي مكان */
 }

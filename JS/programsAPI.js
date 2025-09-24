@@ -9,15 +9,16 @@ document.addEventListener("DOMContentLoaded",() => {
     })
     .then (data => {
         programsCards.innerHTML = "";
-        data.forEach(program => {
+        const activeProg = data.filter(program => program.isActive === 1);
+        activeProg.forEach(program => {
             const progCard = document.createElement("div")
             progCard.className = "col"
             progCard.innerHTML = `
             <div class="card h-100">
-                <img src="/images/مَعرض-التخصصات.png" class="card-img-top" alt="...">
+                <img src="${program.programUrl}" class="card-img-top" alt="..." style = "height:200px">
                 <div class="card-body">
                     <h5 class="card-title">${program.programName}</h5>
-                    <p>${program.programDescription}</p>
+                    <p></p>
                 </div>
             </div>
             `;
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded",() => {
     })
 
     .catch(err => {
-    servicesCards.innerHTML = `<p>حدث خطأ أثناء تحميل الخدمات: ${err.message}</p>`;
+    programsCards.innerHTML = `<p>حدث خطأ أثناء تحميل الخدمات: ${err.message}</p>`;
     console.error(err);
     });
 

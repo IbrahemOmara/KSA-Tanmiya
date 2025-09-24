@@ -9,11 +9,13 @@ fetch("https://tanmia.nasatechnology.net/api/service") // 🔗 حط لينك ا�
     .then(data => {
     servicesCards.innerHTML = ""; // مسح المحتوى القديم
 
-    data.forEach(service => {
+    const activeServices = data.filter(service => service.isActive === 1);
+
+    activeServices.forEach(service => {
         const card = document.createElement("div");
         card.className = "card mb-3";
         card.innerHTML = `
-        <img src="${service.image}" class="card-img-top" alt="${service.title}">
+        <img src="${service.serviceUrl}" class="card-img-top" alt="${service.title}">
         <div class="card-body">
             <h5 class="card-title">${service.serviceName}</h5>
             <p class="card-text">${service.serviceDescription}</p>

@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded",() => {
                     <div class="info">
                         <p class="card-text">${file.reportName}</p>
                         <!-- الزر يفتح ملف PDF -->
-                        <a href="files/sample.pdf" target="_blank" class="btn btn-primary">
+                        <a href="${file.reportURL}" target="_blank" class="btn btn-primary">
                         فتح الملف
                         </a>
                     </div>
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded",() => {
     })
 
     .catch(err => {
-    servicesCards.innerHTML = `<p>حدث خطأ أثناء تحميل الخدمات: ${err.message}</p>`;
+    filesList.innerHTML = `<p>حدث خطأ أثناء تحميل الخدمات: ${err.message}</p>`;
     console.error(err);
     });
 });

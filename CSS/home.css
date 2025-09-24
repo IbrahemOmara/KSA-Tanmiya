@@ -233,51 +233,7 @@ header{
 
 
 
-/*------------ شركاء النجاح -------------*/
-.partners-section {
-    background-color: white;
-    padding: 100px 0;
-    overflow: hidden;
-    text-align: center;
-}
-.partners-section h2{
-    margin: 0;
-    font-weight: 600;
-    color: var(--primary);
 
-}
-.partners-section p{
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.partners-wrapper {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.partners-track {
-    margin-top: 50px;
-    display: flex;
-    width: fit-content;
-    animation: scrollLoop 50s linear infinite;
-}
-.partners-track:hover {
-    animation-play-state: paused;
-}
-
-.logo-group {
-    display: flex;
-}
-
-.logo-group img {
-    height: 100px;
-    margin: 0 40px;
-    width: 200px;
-    object-fit: contain;
-    flex-shrink: 0;
-}
 
 @keyframes scrollLoop {
     0% {
