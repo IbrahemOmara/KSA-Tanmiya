@@ -417,8 +417,12 @@ body {
 body {
     font-size: 14px;
 }
-
-
+h1{
+    padding: 20px !important;
+}
+.h-bottom{
+    padding: 20px 20px !important;
+}
 .h-top{
     flex-direction: column;
     padding: 5px !important;

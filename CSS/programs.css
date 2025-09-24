@@ -64,3 +64,9 @@ html, body{
     color: var(--secondary);
 
 }
+
+@media (max-width: 750px) {
+    .sec1 .row{
+        padding: 20px 20px;
+    }
+}

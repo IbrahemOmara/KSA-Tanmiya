@@ -389,7 +389,7 @@ color: #f4b400;
 body {
     font-size: 14px;
 }
-.sec1{
+.sec1, .sec3, .sec2{
     padding: 20px 20px !important;
 }
 
