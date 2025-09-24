@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             activeMemberships.forEach(membership => {
                 const link = document.createElement("a");
-                link.href = "#"; // لو في لينك بالـ API ضيفه هنا
+                link.href = membership.membershipUrl; // لو في لينك بالـ API ضيفه هنا
                 link.target = "_blank";
                 link.textContent = membership.membershipName;
                 membershipContainer.appendChild(link);

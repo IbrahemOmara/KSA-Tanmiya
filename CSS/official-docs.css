@@ -33,6 +33,7 @@ html, body{
     display: flex;
     flex-direction:row;
     align-items: center;
+    justify-content: center;
     gap: 50px;
     flex-wrap: wrap;
     padding: 50px 200px;
@@ -42,11 +43,12 @@ html, body{
 
 .sec1 .container-s a{
     display: flex;
-    flex: 1;
+    width: 250px;
+    height: 100px;
     align-items: center;
     justify-content: center;
     gap: 20px;
-    padding: 15px 100px;
+    padding: 10px 20px;
     background-color: var(--thaird);
     color: #007c8b;
     border: dashed 1px var(--primary);
@@ -72,16 +74,16 @@ html, body{
     display: flex;
     justify-content: center;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 20px;
-    padding: 20px;
+    padding: 20px 20px;
 }
 .sec1 .container-s2 a{
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: center;
     gap: 20px;
-    padding: 15px 100px;
+    padding: 10px 20px;
     background-color: var(--fourth);
     color: #007c8b;
     border: dashed 1px var(--secondary);

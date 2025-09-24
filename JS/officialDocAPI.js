@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
             data.forEach(police => {
                 const policeCard = document.createElement("a");
                 
-                policeCard.href = "#"; // لو عايز الرابط يشتغل
+                policeCard.href = police.policyURL; // لو عايز الرابط يشتغل
+                policeCard.target = "_blank"; 
                 policeCard.innerHTML = `
                     <span>${police.policyName}</span>
                     <img src="/images/document34.png" alt="">
@@ -39,7 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
             data.forEach(Disclosure => {
                 const DisclosureCard = document.createElement("a");
                 
-                DisclosureCard.href = "#"; // لو عايز الرابط يشتغل
+                DisclosureCard.href = Disclosure.url; // لو عايز الرابط يشتغل
+                DisclosureCard.target = "_blank"
                 DisclosureCard.innerHTML = `
                     <span>${Disclosure.name}</span>
                     <img src="/images/document34.png" alt="">
@@ -48,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         })
         .catch(err => {
-            Disclosures.innerHTML = `<p>حدث خطأ أثناء تحميل السياسات: ${err.message}</p>`;
+            policies.innerHTML = `<p>حدث خطأ أثناء تحميل السياسات: ${err.message}</p>`;
             console.error(err);
         });
 });

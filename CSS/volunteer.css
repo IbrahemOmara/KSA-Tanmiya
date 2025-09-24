@@ -84,6 +84,7 @@ html, body{
 .part-2, .part-3 {
     padding: 20px 0px;
     display: flex;
+    gap: 10px;
     align-items: center;
     flex-direction: column;
 }

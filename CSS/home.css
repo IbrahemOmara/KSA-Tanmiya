@@ -382,3 +382,45 @@ color: #f4b400;
     text-decoration: none;
     color: #cccccc;
 }
+
+
+/* موبايل صغير (أقل من 576px) */
+@media (max-width: 750px) {
+body {
+    font-size: 14px;
+}
+section{
+    padding: 20px 20px !important;
+}
+
+.h-top{
+    flex-direction: column;
+    padding: 5px !important;
+}
+.h-top .contact-info {
+    font-size: 10px;
+    gap: 5px;
+    width: 100%;
+    justify-content: space-around;
+}
+.h-top .mail, .phone, .location {
+    gap: 5px;
+}
+.container-fluid{
+    gap: 50%;
+}
+.container {
+    padding: 0 10px;
+}
+.sec2 .sec2-cards{
+    flex-direction: column;
+}
+.sec2 .sec2-cards .card{
+    width: 100%;
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+}
