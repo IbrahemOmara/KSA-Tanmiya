@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <title>جمعيه التنميه الاهليه بأم الساهك</title>
@@ -16,7 +19,7 @@
     <header>
         <section class="h-top">
             <div class="logo">
-                <a href="/HTML/index.html"><img src="/logo/شعار الجمعية شفاف.png" alt="جمعيه التنميه"></a>
+                <a href="./index.html"><img src="/logo/شعار الجمعية شفاف.png" alt="جمعيه التنميه"></a>
             </div>
             <div class="contact-info">
                 <div class="mail">
@@ -122,7 +125,7 @@
     <section class="sec1">
         <div class="sec1-container">
 
-            <div class="right">
+            <div class="right" data-aos="fade-right" data-aos-delay="600">
                 <div class="num-1">
                     <i class="fa-regular fa-heart fa-beat fa-xl"></i>
                     <h2>709</h2>
@@ -140,17 +143,14 @@
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    
                 </div>
-                <div class="carousel-inner">
+                <div class="carousel-inner" data-aos="zoom-in">
                     <div class="carousel-item active">
                     <img src="/images/slide1.jpg" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
                     <img src="/images/slide2.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                    <img src="/logo/الشعار بالعرض.jpg" class="d-block w-100" alt="...">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -170,54 +170,34 @@
 
     <!---------------- sec2 --------------->
     <section class="sec2" id="services" >
-        <h1>خدماتنا</h1>
-        <hr>
-        <div class="sec2-cards" id="services-cards">
+        <h1 data-aos="fade-up">خدماتنا</h1>
+        <hr data-aos="fade-up">
+        <div class="sec2-cards" id="services-cards" data-aos="fade-up">
             
         </div>
     </section>
 
 
     <!---------------- sec3 --------------->
-    <section class="sec3">
-        <h1>برامجنا</h1>
+    <section class="sec3" data-aos="fade-up" data-aos-delay="300">
+        <h1 data-aos="fade-up">برامجنا</h1>
         <hr>
         <div class="sec3-cards">
-            <div class="row row-cols-1 row-cols-md-4 g-4" id="programs-cards">
+            <div class="row row-cols-1 row-cols-md-4 g-4" id="programs-cards" data-aos="fade-up" data-aos-delay="400">
                 
             </div>
         </div>
-        <button type="button">عرض جميع البرامج</button>
+        <button type="button" onclick="window.location.href='./HTML/programsPage.html'" >عرض جميع البرامج</button>
     </section>
 
     <!---------- شركاء النجاح  ------------>
-<section class="partners-section">
+<section class="partners-section" data-aos="fade-up" data-aos-delay="600">
         <h2 class="title"data-translate="partenersTitle">شركاء القمة</h2>
         <p>نحن في أيدٍ أمينة.</p>
 
         <div class="partners-wrapper" dir="ltr" >
             <div class="partners-track" id="Partners-of-Success">
-                <div class="logo-group">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                </div>
-
-                <div class="logo-group">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-                    <img src="/logo/شعار الجمعية شفاف.png" alt="Cinque Terre">
-
-                </div>
+                
             </div>
         </div>
 </section>
@@ -298,8 +278,9 @@
     <script src="/JS/Partners_of_SuccessAPI.js"></script>
     <script src="/JS/programsAPI.js"></script>
     <script src="/JS/dropdownlist.js"></script>
-    <script>
 
+    <script>
+        AOS.init();
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault(); // امنع الإرسال العادي
             const form = this;
