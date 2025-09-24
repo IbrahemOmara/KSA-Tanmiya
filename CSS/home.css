@@ -432,4 +432,7 @@ button {
 
     animation: scrollLoop 80s linear infinite;
 }
+iframe{
+    width: 300px;
+}
 }
