@@ -66,3 +66,14 @@ background-image: url("data:image/svg+xml,%3Csvg width='80' height='88' viewBox=
     font-size: 1.5em;
     font-weight: 600;
 }
+
+
+@media (max-width: 750px) {
+    .sec2 .sec2-cards {
+        flex-direction: column;
+        padding: 20px 50px;
+    }
+    .sec2 .sec2-cards .card{
+        width: 100%;
+    }
+}

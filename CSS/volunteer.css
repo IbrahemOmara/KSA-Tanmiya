@@ -113,3 +113,9 @@ html, body{
     color: var(--primary);
     font-size: 1.3em;
 }
+
+@media (max-width: 750px) {
+    .container-v .info{
+        padding: 20px 20px;
+    }
+}

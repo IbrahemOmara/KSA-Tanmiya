@@ -156,3 +156,28 @@ background-color: #12d9ef;
 .footer-logo{
     width: 100%;
 }
+
+
+@media (max-width: 750px) {
+    .sec1-container{
+        padding: 10px 10px;
+    }
+    .sec1 .sec1-container .content {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+    }
+    .content .form {
+        width: 100%;
+    }
+
+    .content .details{
+        width: 100%;
+        font-size: small;
+        gap: 20px;
+    }
+    .content .details .contacts .icon{
+        padding: 10px;
+    }
+}

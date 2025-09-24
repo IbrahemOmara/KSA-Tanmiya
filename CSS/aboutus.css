@@ -112,3 +112,24 @@ padding:5px 10px;
 .footer-logo{
     width: 100%;
 }
+
+@media (max-width: 750px) {
+    .sec1-container {
+        padding: 20px 20px;
+    }
+
+    .sec1 .sec1-container .content{
+        flex-direction: column;
+        gap: 50px;
+        align-items: center;
+    }
+    .content .pic {
+        width: 100%;
+    }
+    .content .details{
+        width: 100%;
+    }
+    iframe {
+        width: 100% !important;
+    }
+}
