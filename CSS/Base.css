@@ -454,7 +454,10 @@ button {
 
     animation: scrollLoop 80s linear infinite;
 }
+.footer-logo{
+    width: 100%;
+}
 iframe{
-    width: 335px !important;
+    width: 100% !important;
 }
 }
