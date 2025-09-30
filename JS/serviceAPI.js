@@ -19,7 +19,7 @@ fetch("https://tanmia.nasatechnology.net/api/service") // 🔗 حط لينك ا�
         <div class="card-body">
             <h5 class="card-title">${service.serviceName}</h5>
             <p class="card-text">${service.serviceDescription}</p>
-            <p class="card-text"><small class="text-body-secondary">Last updated just now</small></p>
+            
         </div>
         `;
         servicesCards.appendChild(card);

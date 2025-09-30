@@ -108,6 +108,7 @@ margin-top: 0;
 
 .h-top .logo img{
     height: 80px;
+    padding: 15px;
 }
 
 .h-top .contact-info{
@@ -415,7 +416,7 @@ body {
 /* موبايل صغير (أقل من 576px) */
 @media (max-width: 750px) {
 body {
-    font-size: 14px;
+    font-size: 14px !important;
 }
 h1{
     padding: 20px !important;
@@ -454,6 +455,6 @@ button {
     animation: scrollLoop 80s linear infinite;
 }
 iframe{
-    width: 300px;
+    width: 335px !important;
 }
 }

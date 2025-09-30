@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h2>الوظائف الشاغرة</h2>
                 <span>لا توجد وظائف شاغرة في الوقت الحالي</span>
                 <span>يمكن إرسال السيرة الذاتية عبرَ:</span>
-                <span class="email">tanmyah-um.org.sa</span>
+                <span class="email">info@tanmyah-um.org.sa</span>
                 <span>وسيتم التواصل معكم بإذن الله في حال وجود احتياج</span>
             `;
 

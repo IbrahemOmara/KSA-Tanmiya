@@ -171,6 +171,9 @@ background-color: #12d9ef;
     .content .form {
         width: 100%;
     }
+    .sec1-container p{
+        padding: 20px 20px;
+    }
 
     .content .details{
         width: 100%;

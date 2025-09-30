@@ -117,7 +117,12 @@ padding:5px 10px;
     .sec1-container {
         padding: 20px 20px;
     }
-
+    .sec1-container p{
+        padding: 0px 20px;
+    }
+    .content .details ul{
+        padding-right: 10px;
+    }
     .sec1 .sec1-container .content{
         flex-direction: column;
         gap: 50px;
