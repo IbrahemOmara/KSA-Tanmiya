@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             activegoals.forEach(goal => {
                 const link = document.createElement("a");
-                link.href = ""; // لو في لينك بالـ API ضيفه هنا
+                link.href = goal.objectiveURL; // لو في لينك بالـ API ضيفه هنا
                 link.target = "_blank";
                 link.textContent = goal.objectiveName;
                 goalsLinks.appendChild(link);
