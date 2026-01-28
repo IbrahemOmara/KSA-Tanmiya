@@ -139,6 +139,19 @@ margin-top: 0;
     background-color:var(--secondary);
 }
 
+/* Admin login button in header */
+.admin-login{
+    display:inline-block;
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+.admin-login:hover{background:var(--secondary);color:#fff}
+
 
 .h-bottom{
     padding:0px 100px;

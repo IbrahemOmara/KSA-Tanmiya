@@ -8,8 +8,10 @@ fetch("https://tanmia.nasatechnology.net/api/service") // 🔗 حط لينك ا�
     })
     .then(data => {
     servicesCards.innerHTML = ""; // مسح المحتوى القديم
+    const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+    const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
 
-    const activeServices = data.filter(service => service.isActive === 1);
+    const activeServices = visible.filter(service => service.isActive === 1 || service.isActive === '1');
 
     activeServices.forEach(service => {
         const card = document.createElement("div");

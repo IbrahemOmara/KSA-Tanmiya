@@ -8,9 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             policies.innerHTML = "";
-            data.forEach(police => {
+            const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+            const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
+            visible.forEach(police => {
                 const policeCard = document.createElement("a");
-                
+
                 policeCard.href = police.policyURL; // لو عايز الرابط يشتغل
                 policeCard.target = "_blank"; 
                 policeCard.innerHTML = `
@@ -37,9 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             Disclosures.innerHTML = "";
-            data.forEach(Disclosure => {
+            const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+            const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
+            visible.forEach(Disclosure => {
                 const DisclosureCard = document.createElement("a");
-                
+
                 DisclosureCard.href = Disclosure.url; // لو عايز الرابط يشتغل
                 DisclosureCard.target = "_blank"
                 DisclosureCard.innerHTML = `

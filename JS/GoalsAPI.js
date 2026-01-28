@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             goalsLinks.innerHTML = "";
+            const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+            const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
 
             // 👇 نفلتر الداتا
-            const activegoals = data.filter(m => m.isActive === 1);
-
+            const activegoals = visible.filter(m => m.isActive === 1 || m.isActive === '1');
 
             activegoals.forEach(goal => {
                 const link = document.createElement("a");

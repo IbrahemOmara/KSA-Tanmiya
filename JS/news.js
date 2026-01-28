@@ -44,7 +44,9 @@ fetch("https://tanmia.nasatechnology.net/api/Our_news")
     })
     .then(data => {
     newsCards.innerHTML = "";
-    data.forEach(news => {
+    const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+    const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
+    visible.forEach(news => {
         const newsCard = document.createElement("div");
         newsCard.className = "col";
         newsCard.innerHTML = `

@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded",() => {
     })
     .then (data => {
         programsCards.innerHTML = "";
-        const activeProg = data.filter(program => program.isActive === 1);
+        const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+        const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
+        const activeProg = visible.filter(program => program.isActive === 1 || program.isActive === '1');
         activeProg.forEach(program => {
             const progCard = document.createElement("div")
             progCard.className = "col"

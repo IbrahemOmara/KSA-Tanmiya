@@ -9,9 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     .then(data => {
         membersList.innerHTML = "";
+        const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+        // استبعد العناصر المعلّمة كمحذوفة حيث isDelete == 0
+        const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
 
         // هنا بنفلتر الداتا ونخلي بس اللي isActive = 1
-        const activeMembers = data.filter(member => member.isActive === 1);
+        const activeMembers = visible.filter(member => member.isActive === 1 || member.isActive === '1');
 
         activeMembers.forEach(member => {
             const card = document.createElement("div")

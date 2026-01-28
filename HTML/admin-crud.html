@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>إدارة البيانات - لوحة التحكم</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../CSS/Base.css">
+  <style>
+    .resource-card{background:#fff;border-radius:8px;padding:16px;margin-bottom:12px;transition:all .18s ease;border:1px solid rgba(0,0,0,0.04)}
+    .resource-card:hover{background:#f0f8ff;transform:translateY(-3px);box-shadow:0 8px 24px rgba(13,38,76,0.06);border-color:rgba(0,123,255,0.08)}
+    .resource-card .card-inner{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px}
+    .resource-card .card-inner[role="button"]{cursor:pointer}
+    .resource-card strong{font-size:1.05rem}
+    .resource-card .btn-group{display:flex;gap:8px}
+    .result-box{white-space:pre-wrap;background:#f8f9fa;padding:12px;border-radius:6px;max-height:300px;overflow:auto}
+
+    /* Responsive tweaks for small screens */
+    @media (max-width: 768px){
+      .container{padding-left:12px;padding-right:12px}
+      .resource-card{padding:10px}
+      .resource-card .card-inner{gap:10px}
+    }
+    @media (max-width: 576px){
+      .resource-card .card-inner{flex-direction:column;align-items:flex-end;text-align:right}
+      .resource-card .btn-group{width:100%;justify-content:flex-end;flex-wrap:wrap}
+      .resource-card .btn-group .btn{flex:0 0 auto;margin-top:6px}
+      .resource-card strong{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="margin-top:30px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>إدارة بيانات الـموقع</h2>
+      <div>
+        <a class="btn btn-secondary" href="/index.html">العودة الى الموقع الرئيسي</a>
+      </div>
+    </div>
+
+
+    <div id="resources"></div>
+
+    <!-- Annual reports detailed area -->
+    <div id="annual-section" style="margin-top:20px;display:none;">
+      <h3>التقارير السنوية</h3>
+      <div class="mb-2">
+        <button id="annual-refresh" class="btn btn-sm btn-outline-primary">تحديث القائمة</button>
+        <button id="annual-create" class="btn btn-sm btn-outline-success">إنشاء تقرير جديد</button>
+      </div>
+      <div id="annual-list" class="list-group mb-3"></div>
+      <div id="annual-detail" style="display:none;" class="p-3 border rounded bg-white">
+        <h5>تفاصيل التقرير</h5>
+        <pre id="annual-json" style="max-height:300px;overflow:auto;background:#f8f9fa;padding:12px;border-radius:6px"></pre>
+        <div class="mt-2">
+          <button id="annual-edit" class="btn btn-sm btn-outline-warning">تعديل</button>
+          <button id="annual-delete" class="btn btn-sm btn-outline-danger">حذف</button>
+          <span id="annual-selected" style="margin-right:10px;font-weight:600"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- result box removed (status logged to console) -->
+  </div>
+  </div>
+
+  <script src="../JS/confirm-modal.js"></script>
+  <script>
+    // الموارد المستخرجة من الصورة المرفقة
+    const resources = [
+      'Annual_report','Association_Member','Association_Minute','Board_of_Director','Disclosure','Financial_report','Membership','Our_news','Partners_of_Success','Policies_and_regulations','Program','Satisfaction_measurement','service','Strategic_and_operational_objectivesController'
+    ];
+
+    const resourcesContainer = document.getElementById('resources');
+    const resultBox = document.getElementById('result'); // may be removed from DOM
+
+    // API mapping: use full URL for Annual_report as provided
+    const apiMap = {
+      'Annual_report': 'https://tanmia.nasatechnology.net/api/Annual_report'
+      ,'Association_Member': 'https://tanmia.nasatechnology.net/api/Association_Member'
+      ,'Association_Minute': 'https://tanmia.nasatechnology.net/api/Association_Minute'
+    };
+
+    function renderResources(){
+      resources.forEach(r=>{
+        const el = document.createElement('div');
+        el.className='resource-card';
+        // For Annual_report, wire to specialized handlers
+        if(r === 'Annual_report'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-annual-reports.html'" tabindex="0">
+              <strong>التقارير السنوية</strong>
+            </div>
+          `;
+        } else if (r === 'Association_Member'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-members.html'" tabindex="0">
+              <strong>أعضاء الجمعية</strong>
+            </div>
+          `;
+        } else if (r === 'Association_Minute'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-minutes.html'" tabindex="0">
+              <strong>محاضر الجمعية العمومية</strong>
+            </div>
+          `;
+        } else if (r === 'Board_of_Director'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-board-directors.html'" tabindex="0">
+              <strong>مجلس الاداره</strong>
+            </div>
+          `;
+        } else if (r === 'Disclosure'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-disclosure.html'" tabindex="0">
+              <strong>الإفصاح</strong>
+            </div>
+          `;
+        } else if (r === 'Financial_report'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-financial-report.html'" tabindex="0">
+              <strong>التقارير المالية</strong>
+            </div>
+          `;
+        } else if (r === 'Membership'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-membership.html'" tabindex="0">
+              <strong>العضوية</strong>
+            </div>
+          `;
+        } else if (r === 'Our_news'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-our-news.html'" tabindex="0">
+              <strong>اخبارنا</strong>
+            </div>
+          `;
+        } else if (r === 'Partners_of_Success'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-partners-of-success.html'" tabindex="0">
+              <strong>شركاء القمة</strong>
+            </div>
+          `;
+        } else if (r === 'Policies_and_regulations'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-policies-and-regulations.html'" tabindex="0">
+              <strong>السياسات واللوائح</strong>
+            </div>
+          `;
+        } else if (r === 'Program'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-programs.html'" tabindex="0">
+              <strong>برامجنا</strong>
+            </div>
+          `;
+        } else if (r === 'Satisfaction_measurement'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-satisfaction-measurement.html'" tabindex="0">
+              <strong>قيـاس الرضــا</strong>
+            </div>
+          `;
+        } else if (r === 'service'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-service.html'" tabindex="0">
+              <strong>خدماتنا</strong>
+            </div>
+          `;
+        } else if (r === 'Strategic_and_operational_objectivesController'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-strategic-objectives.html'" tabindex="0">
+              <strong>الأهداف الاستراتيجية والتشغيلية</strong>
+            </div>
+          `;
+        } else {
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="viewResource('${r}')" tabindex="0">
+              <strong>${r}</strong>
+              <div class="btn-group" role="group">
+                <button class="btn btn-sm btn-outline-success" onclick="event.stopPropagation(); createResource('${r}')">إنشاء</button>
+                <button class="btn btn-sm btn-outline-warning" onclick="event.stopPropagation(); updateResource('${r}')">تعديل</button>
+                <button class="btn btn-sm btn-outline-danger" onclick="event.stopPropagation(); deleteResource('${r}')">حذف</button>
+              </div>
+            </div>
+          `;
+        }
+        resourcesContainer.appendChild(el);
+      })
+    }
+
+        // keyboard activation: Enter or Space triggers card buttons
+        document.addEventListener('keydown', (ev)=>{
+          const active = document.activeElement;
+          if(!active) return;
+          try{
+            if(active.getAttribute && active.getAttribute('role') === 'button'){
+              if(ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); active.click(); }
+            }
+          }catch(e){}
+        });
+
+    function showResult(title, data){
+      if(resultBox) resultBox.textContent = title + '\n\n' + (typeof data === 'string' ? data : JSON.stringify(data, null, 2));
+      else console.log(title, data);
+    }
+
+    async function sendRequest(resource, method='GET', id=null, body=null){
+      // Determine base URL for resource (use mapping when provided)
+      const base = apiMap[resource] || ('/api/' + resource);
+      let url = base + (id ? '/' + encodeURIComponent(id) : '');
+      const opts = { method, headers: {} };
+      // include auth token if present
+      const token = localStorage.getItem('authToken');
+      if(token){ opts.headers['Authorization'] = 'Bearer ' + token; }
+      if (body) { opts.headers['Content-Type']='application/json'; opts.body = JSON.stringify(body); }
+      try{
+        console.log('sendRequest', method, url, opts);
+        const res = await fetch(url, opts);
+        const text = await res.text();
+        let data;
+        try{ data = JSON.parse(text); }catch(e){ data = text }
+        showResult(`${method} ${url} → ${res.status} ${res.statusText}`, data);
+        return {ok: res.ok, status: res.status, data};
+      }catch(err){
+        console.error('sendRequest error', err);
+        showResult('خطأ في الاتصال', err.message || err);
+        return {ok:false, error: err};
+      }
+    }
+
+    // NOTE: authentication is handled externally (login modal on the public site).
+    // This page will use the token stored in localStorage by that login.
+
+    async function viewResource(resource){
+      const id = prompt('أدخل المعرف لعرض عنصر محدد (أو اضغط موافق لعرض الكل)');
+      await sendRequest(resource, 'GET', id || null);
+    }
+
+    async function createResource(resource){
+      const input = prompt('أدخل كائن JSON لإنشائه\nمثال: {"title":"عنوان"}');
+      if (!input) return;
+      let body;
+      try{ body = JSON.parse(input); }catch(e){ alert('JSON غير صالح'); return }
+      await sendRequest(resource, 'POST', null, body);
+    }
+
+    async function updateResource(resource){
+      const id = prompt('أدخل معرف العنصر الذي تريد تعديله');
+      if (!id) return;
+      const input = prompt('أدخل JSON بالتعديلات');
+      if (!input) return;
+      let body;
+      try{ body = JSON.parse(input); }catch(e){ alert('JSON غير صالح'); return }
+      await sendRequest(resource, 'PUT', id, body);
+    }
+
+    async function deleteResource(resource){
+      const id = prompt('أدخل معرف العنصر للحذف');
+      if (!id) return;
+      openDeleteConfirm('هل أنت متأكد من حذف العنصر ' + id + ' من ' + resource + ' ؟', async ()=>{
+        await sendRequest(resource, 'DELETE', id);
+      });
+    }
+
+    /* ===== Specialized handlers for Annual_report (التقارير السنوية) ===== */
+    let annualData = [];
+
+    /* ===== Specialized handlers for Association_Member (أعضاء الجمعية) ===== */
+    let membersData = [];
+    let membersSelectedId = null;
+
+    document.addEventListener('click', (e)=>{
+      if(e.target && e.target.id === 'annual-refresh') viewAnnualReports();
+      if(e.target && e.target.id === 'annual-create') createAnnualReport();
+      // card-level actions
+      if(e.target && e.target.classList.contains('btn-admin-update')) adminUpdateByIndex(e.target.dataset.idx);
+      if(e.target && e.target.classList.contains('btn-admin-delete')) adminDeleteByIndex(e.target.dataset.idx);
+      // members actions
+      if(e.target && e.target.id === 'members-refresh') viewMembers();
+      if(e.target && e.target.id === 'members-create') createMember();
+      if(e.target && e.target.dataset && e.target.dataset.action === 'member-edit') memberUpdateByIndex(e.target.dataset.idx);
+      if(e.target && e.target.dataset && e.target.dataset.action === 'member-delete') memberDeleteByIndex(e.target.dataset.idx);
+    });
+
+    async function viewAnnualReports(){
+      document.getElementById('annual-section').style.display = 'block';
+      showResult('جاري جلب التقارير السنوية...');
+      try{
+        const res = await fetch('https://tanmia.nasatechnology.net/api/Annual_report');
+        if(!res.ok) throw new Error('خطأ: ' + res.status);
+        const data = await res.json();
+        annualData = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+        // remove items marked as deleted (isDelete === 1 or true)
+        annualData = annualData.filter(item => !(item && (item.isDelete == 1 || item.isDelete === true)));
+        renderAnnualCards();
+        showResult('تم جلب التقارير', annualData);
+      }catch(err){
+        showResult('خطأ في جلب التقارير', err.message || err);
+        console.error(err);
+      }
+    }
+
+    async function viewMembers(){
+      document.getElementById('annual-section').style.display = 'none';
+      // show members section (create if not present)
+      let sec = document.getElementById('members-section');
+      if(!sec){
+        sec = document.createElement('div');
+        sec.id = 'members-section';
+        sec.style.marginTop = '20px';
+        sec.innerHTML = `
+          <h3>أعضاء الجمعية</h3>
+          <div class="mb-2">
+            <button id="members-refresh" class="btn btn-sm btn-outline-primary">تحديث القائمة</button>
+            <button id="members-create" class="btn btn-sm btn-outline-success">إنشاء عضو</button>
+          </div>
+          <div id="members-list" class="list-group mb-3"></div>
+        `;
+        document.querySelector('.container').insertBefore(sec, document.querySelector('.container').children[3] || null);
+      }
+      sec.style.display = 'block';
+      showResult('جاري جلب الأعضاء...');
+      const res = await sendRequest('Association_Member','GET');
+      if(!res.ok) return;
+      membersData = Array.isArray(res.data) ? res.data : (res.data && res.data.data ? res.data.data : []);
+      // filter deleted
+      membersData = membersData.filter(m => !(m && (m.isDelete == 1 || m.isDelete === true)));
+      renderMembersList();
+      showResult('تم جلب الأعضاء', membersData);
+    }
+
+    function renderMembersList(){
+      const list = document.getElementById('members-list');
+      if(!list) return;
+      list.innerHTML = '';
+      if(!membersData || membersData.length === 0){ list.innerHTML = '<div class="text-muted">لا توجد أعضاء</div>'; return; }
+      membersData.forEach((m, idx)=>{
+        const id = m.id || m._id || m.ID || m.Id || idx;
+        const name = m.memberName || m.name || m.fullName || ('عضو ' + (idx+1));
+        const card = document.createElement('div');
+        card.className = 'card shadow-sm mb-2';
+        card.innerHTML = `
+          <div class="card-body d-flex align-items-center">
+            <div class="flex-grow-1"><strong>${name}</strong></div>
+            <div class="btn-group">
+              <button class="btn btn-sm btn-outline-warning" data-idx="${idx}" data-action="member-edit">تعديل</button>
+              <button class="btn btn-sm btn-outline-danger" data-idx="${idx}" data-action="member-delete">حذف</button>
+            </div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+      document.getElementById('members-list')._list = membersData;
+    }
+
+    async function createMember(){
+      const input = prompt('أدخل JSON العضو الجديد\nمثال: {"name":"اسم"}');
+      if(!input) return;
+      let body; try{ body = JSON.parse(input); }catch(e){ alert('JSON غير صالح'); return }
+      // API expects { name }
+      const payload = { name: body.name ?? body.memberName ?? null };
+      const res = await sendRequest('Association_Member','POST', null, payload);
+      if(res.ok) viewMembers();
+    }
+
+    async function memberUpdateByIndex(idx){
+      const item = membersData[idx];
+      if(!item) return alert('العنصر غير موجود');
+      const id = item.id || item._id || item.ID || item.Id;
+      const currentName = item.memberName || item.name || item.fullName || '';
+      const newName = prompt('أدخل الاسم الجديد', currentName);
+      if(newName === null) return;
+      const token = localStorage.getItem('authToken');
+      if(!token){ alert('غير مسجل دخول'); return }
+      try{
+        const res = await fetch((apiMap['Association_Member']||('/api/Association_Member')) + '/' + encodeURIComponent(id), { method: 'PUT', headers: { 'Authorization': 'Bearer ' + token, 'Content-Type':'application/json' }, body: JSON.stringify({ name: newName }) });
+        const txt = await res.text(); let data; try{ data = JSON.parse(txt);}catch(e){ data = txt }
+        showResult(`PUT member ${id} → ${res.status}`, data);
+        if(res.ok) viewMembers();
+      }catch(err){ console.error(err); showResult('خطأ في التحديث', err.message || err); }
+    }
+
+    async function memberDeleteByIndex(idx){
+      const item = membersData[idx];
+      if(!item) return alert('العنصر غير موجود');
+      const id = item.id || item._id || item.ID || item.Id;
+      const name = item.memberName || item.name || item.fullName || '';
+      openDeleteConfirm('هل أنت متأكد من حذف العضو "' + name + '"؟', async ()=>{
+        const res = await sendRequest('Association_Member','DELETE', id);
+        if(res.ok) viewMembers();
+      });
+    }
+
+
+    function renderAnnualCards(){
+      const list = document.getElementById('annual-list');
+      list.innerHTML = '';
+      if(!annualData || annualData.length === 0){
+        list.innerHTML = '<div class="text-muted">لا توجد تقارير سنوية</div>';
+        return;
+      }
+
+      annualData.forEach((file, idx)=>{
+        const id = file.id || file._id || file.ID || file.Id || file.id_report || idx;
+        const name = file.reportName || file.title || file.name || ('التقرير ' + (idx+1));
+
+        const card = document.createElement('div');
+        card.className = 'card shadow-lg mb-3';
+        card.innerHTML = `
+          <div class="card-body d-flex align-items-center">
+            <img src="/images/pdf2.png" alt="pdf-logo" style="width:48px;margin-left:12px">
+            <div class="info flex-grow-1">
+              <p class="card-text mb-1">${name}</p>
+            </div>
+            <div class="btn-group">
+              <a href="${file.reportURL || '#'}" target="_blank" class="btn btn-sm btn-primary">فتح الملف</a>
+              <button class="btn btn-sm btn-outline-warning btn-admin-update" data-idx="${idx}">تعديل</button>
+              <button class="btn btn-sm btn-outline-danger btn-admin-delete" data-idx="${idx}">حذف</button>
+            </div>
+          </div>
+        `;
+
+        list.appendChild(card);
+      });
+    }
+
+    async function createAnnualReport(){
+      const input = prompt('أدخل JSON لإنشاء تقرير سنوي جديد\\nمثال: {"reportName":"تقرير 2025","reportURL":"https://.../file.pdf"}');
+      if(!input) return;
+      let body; try{ body = JSON.parse(input); } catch(e){ alert('JSON غير صالح'); return }
+      const res = await sendRequest('Annual_report','POST', null, body);
+      if(res.ok) viewAnnualReports();
+    }
+
+    async function adminUpdateByIndex(idx){
+      const item = annualData[idx];
+      if(!item) return alert('العنصر غير موجود');
+      const id = item.id || item._id || item.ID || item.Id;
+      const input = prompt('عدل JSON للتقرير (سيستخدم PUT على /api/Annual_report/{id})', JSON.stringify(item, null, 2));
+      if(!input) return;
+      let body; try{ body = JSON.parse(input); } catch(e){ alert('JSON غير صالح'); return }
+      const res = await sendRequest('Annual_report','PUT', id, body);
+      if(res.ok) viewAnnualReports();
+    }
+
+    async function adminDeleteByIndex(idx){
+      const item = annualData[idx];
+      if(!item) return alert('العنصر غير موجود');
+      const id = item.id || item._id || item.ID || item.Id;
+      openDeleteConfirm('هل تريد حذف التقرير المعرف ' + id + '؟', async ()=>{
+        const res = await sendRequest('Annual_report','DELETE', id);
+        if(res.ok) viewAnnualReports();
+      });
+    }
+
+    // expose handlers to global scope so inline onclick attributes work
+    window.viewAnnualReports = viewAnnualReports;
+    window.createAnnualReport = createAnnualReport;
+    window.viewResource = viewResource;
+    window.createResource = createResource;
+    window.updateResource = updateResource;
+    window.deleteResource = deleteResource;
+
+    console.log('admin-crud script initialized');
+
+    renderResources();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -9,9 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     .then(data => {
         filesList.innerHTML = "";
+        const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+        const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
 
         // هنا بنفلتر الداتا ونخلي بس اللي isActive = 1
-        const activeFiles = data.filter(file => file.isActive === 1);
+        const activeFiles = visible.filter(file => file.isActive === 1 || file.isActive === '1');
 
         activeFiles.forEach(file => {
 

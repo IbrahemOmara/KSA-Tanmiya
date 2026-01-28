@@ -8,9 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             allPartners.innerHTML = "";
+            const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+            const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
 
             // فلترة الاكتف بس
-            const activePartners = data.filter(p => p.isActive === 1);
+            const activePartners = visible.filter(p => p.isActive === 1 || p.isActive === '1');
 
             // أول مجموعة لوجوهات
             const partners = document.createElement("div");

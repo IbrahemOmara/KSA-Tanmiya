@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>لوحة تحكم المدير</title>
+    <link rel="stylesheet" href="../CSS/Base.css">
+    <style>
+        .admin-container{max-width:1000px;margin:40px auto;padding:20px;background:#fff;border-radius:8px}
+        .admin-header{display:flex;justify-content:space-between;align-items:center}
+        .admin-actions{display:flex;gap:12px}
+    </style>
+</head>
+<body>
+        <div class="container admin-container">
+                <div class="admin-header">
+                        <h1>لوحة تحكم المدير</h1>
+                        <div class="admin-actions" id="admin-actions">
+                                <a href="/index.html">العودة</a>
+                                <!-- links shown only after login -->
+                                <a href="/HTML/admin-crud.html" id="link-crud" style="display:none">إدارة البيانات</a>
+                                <a href="#" id="link-logout" style="display:none">تسجيل خروج</a>
+                        </div>
+                </div>
+
+                <div id="pre-login" style="margin-top:12px">
+                    <p>عليك تسجيل الدخول كمدير للوصول إلى أدوات الإدارة.</p>
+                    <button id="show-login" class="btn btn-primary">دخول المدير</button>
+                </div>
+
+                <div id="login-form" style="display:none;margin-top:12px">
+                    <div class="d-flex gap-2 align-items-center">
+                        <input id="adm-username" class="form-control" placeholder="اسم المستخدم" style="max-width:220px">
+                        <input id="adm-password" type="password" class="form-control" placeholder="كلمة المرور" style="max-width:220px">
+                        <button id="adm-login-btn" class="btn btn-success">دخول</button>
+                        <button id="adm-cancel-btn" class="btn btn-secondary">إلغاء</button>
+                    </div>
+                    <div id="adm-login-result" style="margin-top:8px;color:#333"></div>
+                </div>
+
+        <section style="margin-top:20px">
+            <h3>أقسام سريعة</h3>
+            <ul>
+                <li><a href="/HTML/newsPage.html">إدارة الأخبار</a></li>
+                <li><a href="/HTML/programsPage.html">إدارة البرامج</a></li>
+                <li><a href="/HTML/servicesPage.html">إدارة الخدمات</a></li>
+            </ul>
+            <p>هذه صفحة لوحة تحكم بسيطة. أطلب مني إضافة تسجيل دخول أو حماية بكلمة مرور إذا تريد ذلك.</p>
+        </section>
+    </div>
+        <script>
+            const showLoginBtn = document.getElementById('show-login');
+            const loginForm = document.getElementById('login-form');
+            const preLogin = document.getElementById('pre-login');
+            const admLoginBtn = document.getElementById('adm-login-btn');
+            const admCancelBtn = document.getElementById('adm-cancel-btn');
+            const admResult = document.getElementById('adm-login-result');
+            const linkCrud = document.getElementById('link-crud');
+            const linkLogout = document.getElementById('link-logout');
+
+            function updateUIForLogin(){
+                const token = localStorage.getItem('authToken');
+                if(token){
+                    preLogin.style.display = 'none';
+                    loginForm.style.display = 'none';
+                    linkCrud.style.display = 'inline-block';
+                    linkLogout.style.display = 'inline-block';
+                } else {
+                    preLogin.style.display = 'block';
+                    linkCrud.style.display = 'none';
+                    linkLogout.style.display = 'none';
+                }
+            }
+
+            showLoginBtn.addEventListener('click', ()=>{
+                preLogin.style.display = 'none';
+                loginForm.style.display = 'block';
+                admResult.textContent = '';
+            });
+
+            admCancelBtn.addEventListener('click', ()=>{ loginForm.style.display='none'; preLogin.style.display='block'; });
+
+            admLoginBtn.addEventListener('click', async ()=>{
+                const user = document.getElementById('adm-username').value.trim();
+                const pass = document.getElementById('adm-password').value;
+                if(!user || !pass){ admResult.textContent = 'املأ اسم المستخدم وكلمة المرور'; return; }
+                admResult.textContent = 'جاري تسجيل الدخول...';
+                try{
+                    const res = await fetch('https://tanmia.nasatechnology.net/api/Auth/Login',{
+                        method:'POST', headers:{'Content-Type':'application/json'},
+                        body: JSON.stringify({ userName: user, password: pass })
+                    });
+                    const data = await res.json();
+                    if(res.ok && data && data.token){
+                        localStorage.setItem('authToken', data.token);
+                        admResult.textContent = 'تم تسجيل الدخول';
+                        updateUIForLogin();
+                    } else {
+                        admResult.textContent = 'فشل تسجيل الدخول: ' + (data && data.message ? data.message : JSON.stringify(data));
+                    }
+                }catch(err){ console.error(err); admResult.textContent = 'خطأ في الاتصال'; }
+            });
+
+            linkLogout.addEventListener('click', (e)=>{
+                e.preventDefault();
+                localStorage.removeItem('authToken');
+                updateUIForLogin();
+            });
+
+            // init
+            updateUIForLogin();
+        </script>
+</body>
+</html>

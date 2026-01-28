@@ -21,6 +21,11 @@
             <div class="logo">
                 <a href="/index.html"><img src="/logo/الشعار بالعرض.jpg" alt="جمعيه التنميه"></a>
             </div>
+
+            <!-- Admin login button (top-left) -->
+            <div>
+                <a class="admin-login" href="#" id="open-admin-login">دخول المدير</a>
+            </div>
             
             
         </section>
@@ -108,6 +113,22 @@
             </nav>
         </section>
     </header>
+
+        <!-- Admin login modal -->
+        <div id="admin-login-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center">
+            <div style="background:#fff;border-radius:8px;padding:18px;max-width:420px;width:100%;box-shadow:0 6px 18px rgba(0,0,0,0.2);direction:rtl;text-align:right">
+                <h4 style="margin-top:0">تسجيل دخول المدير</h4>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                    <input id="modal-username" placeholder="اسم المستخدم" style="padding:8px;border:1px solid #ddd;border-radius:6px">
+                    <input id="modal-password" type="password" placeholder="كلمة المرور" style="padding:8px;border:1px solid #ddd;border-radius:6px">
+                    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
+                        <button id="modal-cancel" class="btn btn-secondary">إلغاء</button>
+                        <button id="modal-submit" class="btn btn-primary">دخول</button>
+                    </div>
+                    <div id="modal-msg" style="color:#c00;font-size:0.95rem;margin-top:6px"></div>
+                </div>
+            </div>
+        </div>
 
     <!------------------- sec 1 ------------------>
     <section class="sec1">
@@ -266,6 +287,54 @@
     <script src="/JS/Partners_of_SuccessAPI.js"></script>
     <script src="/JS/programsAPI.js"></script>
     <script src="/JS/dropdownlist.js"></script>
+
+        <script>
+            // Admin login modal behavior: open modal, post credentials, save token, redirect to admin CRUD page
+            (function(){
+                const openBtn = document.getElementById('open-admin-login');
+                const modal = document.getElementById('admin-login-modal');
+                if(!openBtn || !modal) return;
+                const cancel = document.getElementById('modal-cancel');
+                const submit = document.getElementById('modal-submit');
+                const userInput = document.getElementById('modal-username');
+                const passInput = document.getElementById('modal-password');
+                const msg = document.getElementById('modal-msg');
+
+                openBtn.addEventListener('click', function(e){
+                    e.preventDefault();
+                    msg.textContent = '';
+                    userInput.value = '';
+                    passInput.value = '';
+                    modal.style.display = 'flex';
+                });
+
+                cancel.addEventListener('click', function(){ modal.style.display = 'none'; });
+
+                submit.addEventListener('click', async function(){
+                    const user = userInput.value.trim();
+                    const pass = passInput.value;
+                    if(!user || !pass){ msg.textContent = 'املأ اسم المستخدم وكلمة المرور'; return; }
+                    msg.textContent = 'جاري تسجيل الدخول...';
+                    try{
+                        const res = await fetch('https://tanmia.nasatechnology.net/api/Auth/Login',{
+                            method: 'POST', headers: {'Content-Type':'application/json'},
+                            body: JSON.stringify({ userName: user, password: pass })
+                        });
+                        const data = await res.json();
+                        if(res.ok && data && data.token){
+                            localStorage.setItem('authToken', data.token);
+                            window.location.href = '/HTML/admin-crud.html';
+                        } else {
+                            msg.textContent = 'فشل تسجيل الدخول';
+                            console.warn('login failed', data);
+                        }
+                    }catch(err){ console.error(err); msg.textContent = 'خطأ في الاتصال'; }
+                });
+
+                // close modal when clicking outside inner box
+                modal.addEventListener('click', function(e){ if(e.target === modal) modal.style.display = 'none'; });
+            })();
+        </script>
 
     <script>
         AOS.init();

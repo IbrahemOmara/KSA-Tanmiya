@@ -8,9 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             memberships.innerHTML = "";
+            const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+            const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
 
             // 👇 نفلتر الداتا
-            const activeMemberships = data.filter(m => m.isActive === 1);
+            const activeMemberships = visible.filter(m => m.isActive === 1 || m.isActive === '1');
 
             // 👇 جزء العضويات
             const membershipContainer = document.createElement("div");

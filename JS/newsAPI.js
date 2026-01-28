@@ -44,8 +44,10 @@ fetch("https://tanmia.nasatechnology.net/api/Our_news")
     })
     .then(data => {
     newsCards.innerHTML = "";
+    const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
+    const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
      // هنا بنفلتر الداتا ونخلي بس اللي isActive = 1
-    const activeNews = data.filter(news => news.isActive == 1);
+    const activeNews = visible.filter(news => news.isActive == 1 || news.isActive == '1');
     
     activeNews.forEach(news => {
         const newsCard = document.createElement("div");
