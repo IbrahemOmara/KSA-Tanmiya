@@ -438,7 +438,7 @@ h1{
     padding: 20px 20px !important;
 }
 .h-top{
-    flex-direction: column;
+    flex-direction: row !important;
     padding: 5px !important;
 }
 .h-top .contact-info {
@@ -448,6 +448,11 @@ h1{
     width: 100%;
     justify-content: space-around;
 }
+.admin-login{
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+}
+
 .h-top .mail, .phone, .location {
     gap: 5px;
 }
