@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <title>    قيـاس الرضــا - جمعيه التنميه الاهليه بأم الساهك</title>
+    <title>الوظائف - جمعيه التنميه الاهليه بأم الساهك</title>
     <link rel="shortcut icon" href="../logo/شعار الجمعية شفاف.png" type="image/x-icon">
     <link rel="stylesheet" href="/CSS/Base.css">
-    <link rel="stylesheet" href="/CSS/squestionnaire.css">
+    <link rel="stylesheet" href="/CSS/contactus.css">
     <!-- CSS Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -18,8 +18,7 @@
             <div class="logo">
                 <a href="/index.html"><img src="/logo/الشعار بالعرض.jpg" alt="جمعيه التنميه"></a>
             </div>
-            
-            
+    
         </section>
         <section class="h-bottom">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -52,7 +51,7 @@
 
                         <!-- Dropdown رئيسي -->
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             عن الجمعية
                         </a>
                         <ul class="dropdown-menu">
@@ -79,10 +78,10 @@
                             </ul>
                             </li>
                             <li><a class="dropdown-item " href="/HTML/organizational-structure.html"> الهيكل التنظيمي</a></li>
-                            <li><a class="dropdown-item active " href="/HTML/squestionnaire.html"> قيـاس رضا المستفيد</a></li>
+                            <li><a class="dropdown-item  " href="/HTML/squestionnaire.html"> قيـاس رضا المستفيد</a></li>
                             <li><a class="dropdown-item " href="/HTML/official-docs.html">السياسات واللوائح والافصاح </a></li>
                             <li><a class="dropdown-item " href="/HTML/volunteer.html">التطوع</a></li>
-                            <li><a class="dropdown-item " href="/HTML/jobs.html">الوظائف</a></li>
+                            <li><a class="dropdown-item active" href="/HTML/jobs.html">الوظائف</a></li>
                             <li><a class="dropdown-item " href="/HTML/membership.html">العضوية</a></li>
                             <li><a class="dropdown-item " href="/HTML/goals.html">الأهداف الاستراتيجية والتشغيلية</a></li>
                             <li><a class="dropdown-item " href="/HTML/statics.html"> الإحصائيات والمسـاعدات</a></li>
@@ -105,21 +104,67 @@
                     </div>
                 </div>
             </nav>
-            </nav>
         </section>
     </header>
 
     <!------------------- sec 1 ------------------>
     <section class="sec1">
-        <h1>قيـاس الرضــا</h1>
-        <div class="container-s" id="container-s">
-            
+        <h1>الوظائف</h1>
+        <div class="sec1-container">
+            <h2>تقديم طلب توظيف...</h2>
+            <hr>
+            <p>نسعد بانضمامك لفريقنا! في حال توفر شواغر تناسبك سيتم التواصل معك. يرجى تعبئة النموذج أدناه وتضمين رابط سيرتك الذاتية.</p>
+            <div class="content">
+                <div class="form">
+                    <form id="contactForm" action="https://formsubmit.co/info@info@tanmyah-um.org.sa" method="POST">
+                        <input type="hidden" name="_subject" value="طلب توظيف جديد من الموقع">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <span>الاسم</span>
+                        <input type="text" name="name" placeholder="ادخل اسمك بالكامل..." required>
+                        <span> رقم الهاتف</span>
+                        <input type="tel" name="phone" placeholder=" ادخل رقم هاتفك" required>
+                        <span>البريد الالكتروني</span>
+                        <input type="email" name="email" placeholder="ادخل البريد الإلكتروني" required>
+                        <span>نبذة عنك / رابط السيرة الذاتية (Google Drive أو غيره)</span>
+                        <textarea name="message" placeholder="اكتب نبذة عن مؤهلاتك أو ضع رابط السيرة الذاتية هنا..." required></textarea>
+                        <button type="submit">إرسال</button>
+                    </form>
+                </div>
+                <div class="details">
+                    <h3>معلومات التواصل</h3>
+                    <div class="contacts">
+                        <div class="icon"><i class="fa-solid fa-phone fa-lg"></i></div>
+                        <div class="contact-data">
+                            <h4>الهاتف</h4>
+                            <span>966556505193+</span>
+                        </div>
+                    </div>
+                    <div class="contacts">
+                        <div class="icon"><i class="fa-solid fa-envelope fa-lg"></i></div>
+                        <div class="contact-data">
+                            <h4>البريد الإلكتروني</h4>
+                            <span>info@info@tanmyah-um.org.sa</span>
+                        </div>
+                    </div>
+                    <div class="contacts">
+                        <div class="icon"><i class="fa-solid fa-location-dot fa-lg"></i></div>
+                        <div class="contact-data">
+                            <h4>العنوان</h4>
+                            <span>أم الساهك، المنطقة الشرقية، المملكة العربية السعودية</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h4>ساعات العمل</h4>
+                        <ul>
+                            <li>الأحد - الخميس: 8:00 صباحاً - 4:00 مساءً</li>
+                            <li>الجمعة - السبت: مغلق</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
-
-
-
-
+</section>
 
 
 
@@ -134,45 +179,7 @@
             <div class="container footer-content">
                 <!-- الجزء الأول: اللوجو -->
                 <div class="footer-logo">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3566.1551240447097!2d49.914124424414844!3d26.643515276808667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e35fb0059c85d19%3A0xd0de56a8464e7d62!2z2KzZhdi52YrYqSDYp9mE2KrZhtmF2YrYqSDYp9mE2KfZh9mE2YrYqSDYqNij2YUg2KfZhNiz2KfZh9mD!5e0!3m2!1sar!2seg!4v1756364174110!5m2!1sar!2seg" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-
-                <!-- الجزء الثاني: نبذة وكروت التواصل -->
-                <div class="footer-about">
-                <h3>جمعية التنمية الأهلية بأم الساهك</h3>
-                <p>نعمل معاً من أجل تنمية مستدامة ومستقبل أفضل لمجتمعنا. نسعى لتحقيق التنمية الشاملة والمستدامة في مختلف المجالات. جمعية التنمية الأهلية بأم الساهك، جمعية أهلية تأسست في تاريخ 12 / 09 /1443هـ، مسجلة في المركز الوطني بترخيص برقم (4152)</p>
-                
-                <div class="contact-cards">
-                    <div class="contact-card">
-                    <i class="fas fa-phone"></i>
-                    <span>5193 650 55 966+</span>
-                    </div>
-                    <div class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <span>info@tanmyah-um.org.sa</span>
-                    </div>
-                    <div class="contact-card">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>أم الساهك، المنطقة الشرقية، المملكة العربية السعودية</span>
-                    </div>
-                </div>
-                </div>
-
-                <!-- الجزء الثالث: الفورم -->
-                <div class="footer-form">
-                <h3>راسلنا</h3>
-                <form id="contactForm" action="https://formsubmit.co/info@tanmyah-um.org.sa" method="POST">
-                <input type="hidden" name="_subject" value="رسالة جديدة من موقع الشركة">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-
-                <input type="text" name="name" placeholder="الاسم" required>
-                <input type="tel" name="phone" placeholder="رقم الهاتف" required>
-                <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-                <textarea name="message" placeholder="رسالتك" required></textarea>
-                <button type="submit">إرسال</button>
-                </form>
-
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3566.1551240447097!2d49.914124424414844!3d26.643515276808667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e35fb0059c85d19%3A0xd0de56a8464e7d62!2z2KzZhdi52YrYqSDYp9mE2KrZhtmF2YrYqSDYp9mE2KfZh9mE2YrYqSDYqNij2YUg2KfZhNiz2KfZh9mD!5e0!3m2!1sar!2seg!4v1756364174110!5m2!1sar!2seg" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
 
@@ -194,7 +201,28 @@
     <!-- JS Bootstrap (مع Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/JS/dropdownlist.js"></script>
-    <script src="/JS/SquestionnaireAPI.js"></script>
+    <script >
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // امنع الإرسال العادي
+            const form = this;
+            fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+            }).then(response => {
+            if (response.ok) {
+                form.style.display = 'none'; // اخفي الفورم
+                const msg = document.createElement('div');
+                msg.innerHTML = "<h3 style='color: #4CAF50;'>تم إرسال طلب التوظيف بنجاح! سنتواصل معك في حال وجود شواغر تناسب مؤهلاتك.</h3>";
+                form.parentNode.appendChild(msg);
+            } else {
+                alert("حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
+            }
+            }).catch(error => {
+            alert("حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
+            });
+        });
+        </script>
 <script src="/JS/custom-alert.js"></script>
 </body>
 </html>

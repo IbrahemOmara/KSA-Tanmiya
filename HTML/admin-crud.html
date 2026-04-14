@@ -68,7 +68,7 @@
   <script>
     // الموارد المستخرجة من الصورة المرفقة
     const resources = [
-      'Annual_report','Association_Member','Association_Minute','Board_of_Director','Disclosure','Financial_report','Membership','Our_news','Partners_of_Success','Policies_and_regulations','Program','Satisfaction_measurement','service','Strategic_and_operational_objectivesController'
+      'Annual_report','Association_Member','Association_Minute','Board_of_Director','Disclosure','Financial_report','Membership','Our_news','Partners_of_Success','Policies_and_regulations','Program','Satisfaction_measurement','service','Strategic_and_operational_objectivesController', 'Statics'
     ];
 
     const resourcesContainer = document.getElementById('resources');
@@ -168,6 +168,12 @@
           el.innerHTML = `
             <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-strategic-objectives.html'" tabindex="0">
               <strong>الأهداف الاستراتيجية والتشغيلية</strong>
+            </div>
+          `;
+        } else if (r === 'Statics'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-statics.html'" tabindex="0">
+              <strong>الإحصائيات والمسـاعدات</strong>
             </div>
           `;
         } else {
@@ -465,5 +471,6 @@
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/JS/custom-alert.js"></script>
 </body>
 </html>
