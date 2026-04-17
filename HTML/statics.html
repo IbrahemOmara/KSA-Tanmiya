@@ -81,7 +81,9 @@
                             <li><a class="dropdown-item " href="/HTML/organizational-structure.html"> الهيكل التنظيمي</a></li>
                             <li><a class="dropdown-item  " href="/HTML/squestionnaire.html"> قيـاس رضا المستفيد</a></li>
                             <li><a class="dropdown-item " href="/HTML/official-docs.html">السياسات واللوائح والافصاح </a></li>
-                            <li><a class="dropdown-item " href="/HTML/volunteer.html">التطــوّع-الوظائف-العضوية</a></li>
+                            <li><a class="dropdown-item " href="/HTML/volunteer.html">التطوع</a></li>
+                            <li><a class="dropdown-item " href="/HTML/jobs.html">الوظائف</a></li>
+                            <li><a class="dropdown-item " href="/HTML/membership.html">العضوية</a></li>
                             <li><a class="dropdown-item " href="/HTML/goals.html">الأهداف الاستراتيجية والتشغيلية</a></li>
                             <li><a class="dropdown-item active" href="/HTML/statics.html"> الإحصائيات والمسـاعدات</a></li>
                             <li><a class="dropdown-item " href="/HTML/branches.html">  الفروع والمكـاتب و اللجان</a></li>
@@ -110,7 +112,7 @@
     <section class="sec1">
         <h1> الإحصائيات والمسـاعدات </h1>
 
-        <div class="info">
+        <div class="info" id="statics-render" style="white-space: pre-line;">
             <h4>الإحصائيات و المساعدات لعام ٢٠٢٣م</h4>
             <ul>
                 <li>
@@ -211,5 +213,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/JS/dropdownlist.js"></script>
     <script src="/JS/news.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const staticsContainer = document.getElementById("statics-render");
+            const savedStatics = localStorage.getItem('staticsData');
+            if(savedStatics && savedStatics.trim() !== '') {
+                staticsContainer.innerHTML = savedStatics;
+            }
+        });
+    </script>
+<script src="/JS/custom-alert.js"></script>
 </body>
 </html>

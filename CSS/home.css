@@ -292,7 +292,7 @@ gap: 15px;
 }
 
 .contact-card {
-border: dashed 2px var(--primary);
+border: solid 2px var(--primary);
 background-color:#f7f8e6;
 color: var(--secondary);
 padding: 15px;

@@ -12,10 +12,12 @@ document.addEventListener("DOMContentLoaded",() => {
         const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
 
         visible.forEach(file => {
+            const rawUrl = file.MeasurementURL || file.measurementURL || file.measurementUrl || '';
+            const hrefAttr = rawUrl ? `href="${rawUrl}" target="_blank"` : `href="javascript:void(0)" style="cursor:default;"`;
             const fileCard = document.createElement("div")
             fileCard.className = "top"
             fileCard.innerHTML = `
-                <a href=""> ${file.measurementName}</a>
+                <a ${hrefAttr}> ${file.measurementName || 'قياس الرضا'}</a>
             `;
             allCards.appendChild(fileCard)
         })

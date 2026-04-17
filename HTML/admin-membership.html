@@ -27,6 +27,22 @@
       <button id="add-new" class="btn btn-outline-success">إضافة عضوية جديدة</button>
     </div>
 
+    
+    <div class="card mb-4" style="border: 1px solid #007c8b;">
+      <div class="card-header text-white" style="background-color: #007c8b;">
+        شروط العضوية (تظهر في صفحة العضوية)
+      </div>
+      <div class="card-body">
+        <textarea id="conditions-text" class="form-control" rows="5" placeholder="اكتب شروط العضوية هنا..."></textarea>
+        <div class="mt-2 d-flex justify-content-end">
+          <button id="save-conditions" class="btn btn-success">حفظ الشروط</button>
+        </div>
+        <div id="conditions-msg" class="mt-2"></div>
+      </div>
+    </div>
+
+    <hr>
+    <h5>ملفات العضوية (الصور و PDF)</h5>
     <div id="items" class="mb-3"></div>
 
     <!-- Create Modal -->
@@ -95,7 +111,11 @@
       if(!res.ok) throw new Error('Status ' + res.status);
       const data = await res.json();
       const list = Array.isArray(data) ? data : (data && data.data ? data.data : []);
-      const visible = list.filter(item => !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true)));
+      const visible = list.filter(item => {
+        const name = item.MembershipName || item.membershipName || '';
+        if(name === '[CONDITIONS]') return false;
+        return !(item && (item.isDelete == 1 || item.isDelete === '1' || item.isDelete === true));
+      });
       renderList(visible);
     }catch(err){ itemsEl.innerHTML = '<div class="text-danger">فشل في جلب البيانات</div>'; showResult('خطأ في التحميل', err); }
   }
@@ -207,6 +227,30 @@
     modal.onclick = function(e){ if(e.target===modal){ modal.style.display='none'; remove(); } };
   }
 
+  
+  const conditionsItemId = null; // Unused now
+
+  function loadConditions() {
+      const text = localStorage.getItem('membershipConditions');
+      if(text) {
+          document.getElementById('conditions-text').value = text;
+      }
+  }
+
+  document.getElementById('save-conditions').addEventListener('click', () => {
+      const text = document.getElementById('conditions-text').value;
+      const msg = document.getElementById('conditions-msg');
+      
+      localStorage.setItem('membershipConditions', text);
+      msg.innerHTML = '<span class=\"text-success\">تم حفظ الشروط بنجاح محلياً!</span>';
+      
+      setTimeout(() => msg.innerHTML='', 3000);
+  });
+
+  // Load specifically
+  loadConditions();
+
+
   // init
   loadItems();
 </script>
@@ -239,5 +283,6 @@ function openDeleteConfirm(message, onConfirm){
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/JS/custom-alert.js"></script>
 </body>
 </html>

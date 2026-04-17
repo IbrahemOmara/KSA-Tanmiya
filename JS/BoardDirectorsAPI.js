@@ -16,12 +16,27 @@ document.addEventListener("DOMContentLoaded", () => {
         // هنا بنفلتر الداتا ونخلي بس اللي isActive = 1
         const activeMembers = visible.filter(member => member.isActive === 1 || member.isActive === '1');
 
+        activeMembers.forEach(item => {
+            let rawName = item.name || '';
+            let order = 999;
+            let cleanName = rawName;
+            const match = cleanName.match(/^\[ORDER:(\d+)\]\s*(.*)$/);
+            if(match){
+                order = parseInt(match[1], 10);
+                cleanName = match[2];
+            }
+            item._parsedOrder = order;
+            item._cleanName = cleanName;
+        });
+
+        activeMembers.sort((a,b) => a._parsedOrder - b._parsedOrder);
+
         activeMembers.forEach(member => {
             const card = document.createElement("div")
             card.className = "member-card"
             card.innerHTML = `
-            <h3>${member.name}</h3>
-            <span>${member.position}</span>
+            <h3>${member._cleanName}</h3>
+            <span>${member.position || ''}</span>
             `;
             membersList.appendChild(card);
         });
