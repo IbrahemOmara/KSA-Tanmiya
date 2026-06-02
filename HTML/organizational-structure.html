@@ -111,10 +111,146 @@
     <!------------------- sec 1 ------------------>
     <section class="sec1">
         <h1>الهيكل التنظيمي</h1>
-        <div class="image">
-            <img src="/images/stracture.jpg" alt="">
+
+        <div class="org-wrapper">
+            <h2 class="org-title">الهيكل التنظيمي للجمعية</h2>
+
+            <div class="org-grid">
+
+                <!-- الإدارة التنفيذية -->
+                <div class="org-col">
+                    <div class="org-header">الإدارة التنفيذية</div>
+                    <div class="org-members" id="org-executive"></div>
+                </div>
+
+                <!-- أعضاء مجلس الإدارة -->
+                <div class="org-col">
+                    <div class="org-header">أعضاء مجلس الإدارة</div>
+                    <div class="org-members" id="org-board"></div>
+                </div>
+
+                <!-- أعضاء الجمعية العمومية -->
+                <div class="org-col">
+                    <div class="org-header">أعضاء الجمعية العمومية</div>
+                    <div class="org-members" id="org-assembly"></div>
+                </div>
+
+            </div>
         </div>
     </section>
+
+    <style>
+        .org-wrapper {
+            width: 100%;
+            padding: 40px 30px;
+            background: #f0fafa;
+        }
+        .org-title {
+            text-align: center;
+            font-weight: 700;
+            font-size: 2rem;
+            color: #007c8b;
+            margin-bottom: 40px;
+        }
+        .org-grid {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        .org-col {
+            flex: 1;
+            min-width: 260px;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .org-header {
+            background: #007c8b;
+            color: #fff;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 14px 10px;
+            border-radius: 8px;
+        }
+        .org-members {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .org-card {
+            background: #fff;
+            border: 1px solid #b2dfe6;
+            border-radius: 6px;
+            padding: 10px 14px;
+            text-align: center;
+        }
+        .org-card .member-name {
+            font-weight: 600;
+            color: #007c8b;
+            font-size: 0.95rem;
+        }
+        .org-card .member-role {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 2px;
+        }
+        @media (max-width: 768px) {
+            .org-grid { flex-direction: column; align-items: center; }
+            .org-col { max-width: 100%; width: 100%; }
+        }
+    </style>
+
+    <script>
+      (function () {
+        const defaults = {
+          executive: [
+            { name: 'فهد سليمان القناص',  role: 'المدير التنفيذي' },
+            { name: 'رامي يحيى غروي',     role: 'نائب المدير التنفيذي' }
+          ],
+          board: [
+            { name: 'ناصر بطي الخالدي',        role: 'رئيس مجلس الإدارة' },
+            { name: 'فهد مبارك القحطاني',       role: 'عضو مجلس الإدارة' },
+            { name: 'غازي أحمد الشايب',         role: 'نائب رئيس مجلس الإدارة' },
+            { name: 'عبدالله مغضي العنزي',      role: 'عضو مجلس الإدارة' },
+            { name: 'سلمان مبارك العواد',        role: 'عضو مجلس الإدارة' },
+            { name: 'عبدالله محمد العواد',       role: 'نائب مجلس الإدارة' },
+            { name: 'خالد مبارك العواد',         role: 'عضو مجلس الإدارة' }
+          ],
+          assembly: [
+            { name: 'فهد مبارك القحطاني',          role: 'عضو' },
+            { name: 'حمد صالح الطويرش',            role: 'عضو' },
+            { name: 'ممدوح سليمان القناص',          role: 'عضو' },
+            { name: 'خالد مبارك العواد',            role: 'عضو' },
+            { name: 'صالح مشعل الجفالي',           role: 'عضو' },
+            { name: 'علي سلطان الخالدي',           role: 'عضو' },
+            { name: 'عبدالرحمن عبدالله الخالدي',   role: 'عضو' },
+            { name: 'عبدالله محمد العواد',          role: 'عضو' },
+            { name: 'سلمان مبارك العواد',           role: 'عضو' },
+            { name: 'عبدالله مغضي العنزي',         role: 'عضو' }
+          ]
+        };
+
+        const saved = JSON.parse(localStorage.getItem('orgStructure') || 'null');
+        const data = saved || defaults;
+
+        function renderCol(id, members) {
+          const el = document.getElementById(id);
+          el.innerHTML = members.map(m => `
+            <div class="org-card">
+              <div class="member-role">${m.role}</div>
+              <div class="member-name">${m.name}</div>
+            </div>`).join('');
+        }
+
+        renderCol('org-executive', data.executive);
+        renderCol('org-board',     data.board);
+        renderCol('org-assembly',  data.assembly);
+      })();
+    </script>
 
 
 

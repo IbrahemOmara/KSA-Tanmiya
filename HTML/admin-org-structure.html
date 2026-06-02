@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>إدارة - الهيكل التنظيمي</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../CSS/Base.css">
+  <style>
+    body { background: #f5f7fb; }
+    .col-block { background: #fff; border: 1px solid #007c8b; border-radius: 8px; padding: 16px; margin-bottom: 20px; }
+    .col-block .col-header { background: #007c8b; color: #fff; padding: 10px 14px; border-radius: 6px; font-weight: 700; margin-bottom: 14px; text-align: center; font-size: 1.05rem; }
+    .member-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .member-row input { flex: 1; }
+    .btn-del { color: #dc3545; background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 0 4px; line-height: 1; }
+    .btn-del:hover { color: #a00; }
+    .add-member-btn { border: 2px dashed #007c8b; background: #f0fafa; color: #007c8b; width: 100%; padding: 7px; border-radius: 6px; cursor: pointer; font-size: 0.95rem; }
+    .add-member-btn:hover { background: #d6f0f0; }
+    .save-bar { position: sticky; bottom: 0; background: #f5f7fb; padding: 12px 0; border-top: 1px solid #ddd; display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+    label.field-label { font-size: 0.75rem; color: #888; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container" style="margin-top:24px; max-width:820px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3>الهيكل التنظيمي - إدارة</h3>
+      <a class="btn btn-secondary" href="/HTML/admin-crud.html">العودة</a>
+    </div>
+    <p class="text-muted mb-4">عدّل أعضاء كل قسم. كل سطر = عضو واحد (الاسم + المنصب).</p>
+
+    <div id="cols-container"></div>
+
+    <div class="save-bar">
+      <button id="save-all" class="btn btn-success px-4">حفظ جميع التغييرات</button>
+      <span id="save-msg"></span>
+    </div>
+  </div>
+
+  <script>
+    const colDefs = [
+      { key: 'executive', label: 'الإدارة التنفيذية' },
+      { key: 'board',     label: 'أعضاء مجلس الإدارة' },
+      { key: 'assembly',  label: 'أعضاء الجمعية العمومية' }
+    ];
+
+    const defaults = {
+      executive: [
+        { name: 'فهد سليمان القناص',  role: 'المدير التنفيذي' },
+        { name: 'رامي يحيى غروي',     role: 'نائب المدير التنفيذي' }
+      ],
+      board: [
+        { name: 'ناصر بطي الخالدي',        role: 'رئيس مجلس الإدارة' },
+        { name: 'فهد مبارك القحطاني',       role: 'عضو مجلس الإدارة' },
+        { name: 'غازي أحمد الشايب',         role: 'نائب رئيس مجلس الإدارة' },
+        { name: 'عبدالله مغضي العنزي',      role: 'عضو مجلس الإدارة' },
+        { name: 'سلمان مبارك العواد',        role: 'عضو مجلس الإدارة' },
+        { name: 'عبدالله محمد العواد',       role: 'نائب مجلس الإدارة' },
+        { name: 'خالد مبارك العواد',         role: 'عضو مجلس الإدارة' }
+      ],
+      assembly: [
+        { name: 'فهد مبارك القحطاني',          role: 'عضو' },
+        { name: 'حمد صالح الطويرش',            role: 'عضو' },
+        { name: 'ممدوح سليمان القناص',          role: 'عضو' },
+        { name: 'خالد مبارك العواد',            role: 'عضو' },
+        { name: 'صالح مشعل الجفالي',           role: 'عضو' },
+        { name: 'علي سلطان الخالدي',           role: 'عضو' },
+        { name: 'عبدالرحمن عبدالله الخالدي',   role: 'عضو' },
+        { name: 'عبدالله محمد العواد',          role: 'عضو' },
+        { name: 'سلمان مبارك العواد',           role: 'عضو' },
+        { name: 'عبدالله مغضي العنزي',         role: 'عضو' }
+      ]
+    };
+
+    let data = JSON.parse(JSON.stringify(
+      JSON.parse(localStorage.getItem('orgStructure') || 'null') || defaults
+    ));
+
+    function render() {
+      const container = document.getElementById('cols-container');
+      container.innerHTML = '';
+
+      colDefs.forEach(col => {
+        const block = document.createElement('div');
+        block.className = 'col-block';
+        block.innerHTML = `
+          <div class="col-header">${col.label}</div>
+          <div class="members-list" data-key="${col.key}">
+            ${data[col.key].map((m, i) => memberRow(col.key, i, m)).join('')}
+          </div>
+          <button class="add-member-btn mt-2" data-key="${col.key}">+ إضافة عضو</button>
+        `;
+        container.appendChild(block);
+      });
+
+      // Events: inputs
+      container.querySelectorAll('.name-input').forEach(inp => {
+        inp.addEventListener('input', () => { data[inp.dataset.key][+inp.dataset.i].name = inp.value; });
+      });
+      container.querySelectorAll('.role-input').forEach(inp => {
+        inp.addEventListener('input', () => { data[inp.dataset.key][+inp.dataset.i].role = inp.value; });
+      });
+
+      // Events: delete member
+      container.querySelectorAll('.del-member').forEach(btn => {
+        btn.addEventListener('click', () => {
+          data[btn.dataset.key].splice(+btn.dataset.i, 1);
+          render();
+        });
+      });
+
+      // Events: add member
+      container.querySelectorAll('.add-member-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          data[btn.dataset.key].push({ name: '', role: '' });
+          render();
+          const list = container.querySelector(`.members-list[data-key="${btn.dataset.key}"]`);
+          const inputs = list.querySelectorAll('.name-input');
+          if (inputs.length) inputs[inputs.length - 1].focus();
+        });
+      });
+    }
+
+    function memberRow(key, i, m) {
+      return `
+        <div class="member-row">
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <label class="field-label">الاسم</label>
+            <input type="text" class="form-control name-input" data-key="${key}" data-i="${i}" value="${esc(m.name)}" placeholder="الاسم">
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <label class="field-label">المنصب</label>
+            <input type="text" class="form-control role-input" data-key="${key}" data-i="${i}" value="${esc(m.role)}" placeholder="المنصب">
+          </div>
+          <button class="btn-del del-member" data-key="${key}" data-i="${i}" style="margin-top:20px" title="حذف">✕</button>
+        </div>`;
+    }
+
+    function esc(s) { return (s||'').replace(/"/g,'&quot;'); }
+
+    document.getElementById('save-all').addEventListener('click', () => {
+      // sync inputs
+      document.querySelectorAll('.name-input').forEach(inp => { data[inp.dataset.key][+inp.dataset.i].name = inp.value; });
+      document.querySelectorAll('.role-input').forEach(inp => { data[inp.dataset.key][+inp.dataset.i].role = inp.value; });
+
+      localStorage.setItem('orgStructure', JSON.stringify(data));
+      const msg = document.getElementById('save-msg');
+      msg.innerHTML = '<span class="text-success fw-bold">✓ تم الحفظ بنجاح!</span>';
+      setTimeout(() => msg.innerHTML = '', 3000);
+    });
+
+    render();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

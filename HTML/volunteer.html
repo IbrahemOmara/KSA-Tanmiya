@@ -110,27 +110,34 @@
 
     <!------------------- sec 1 ------------------>
     <section class="sec1">
-        <h1>التطــوّع </h1>
-        <div class="container-v">    
+        <h1>التطوع</h1>
+        <div class="container-v">
             <div class="info">
-                <p>
+                <p id="vol-info">
                     تتيح الجمعية فرص تطوعية إدارية ومكتبية ،
                     سامة وعطاء التابع للجمعية ، نحفظ
                     بصحبة فريق ابت
                     حق المتطوع بتسجيل ساعاته التطوعية عبر منصة
-                    العمل التطوعي 
+                    العمل التطوعي
                 </p>
             </div>
             <div class="contact-v">
-                <span>
-                    بلغ عدد  الساعات التطوعيه لعام ٢٠٢٤م ما يقارب ٤٥٢ ساعه تطوعية من ٢٣ فرصه تطوعيه
-                </span>
-                <span>نسعد أن تكون جزء منا</span>
-                <a href="https://wa.me/+966535303406" target="_blank">تطوع معنا </a>
+                <span id="vol-stats">بلغ عدد  الساعات التطوعيه لعام ٢٠٢٤م ما يقارب ٤٥٢ ساعه تطوعية من ٢٣ فرصه تطوعيه</span>
+                <span id="vol-invite">نسعد أن تكون جزء منا</span>
+                <a id="vol-link" href="https://wa.me/+966535303406" target="_blank">تطوع معنا</a>
             </div>
         </div>
+    </section>
 
-        </section>
+    <script>
+      (function () {
+        const g = k => localStorage.getItem(k);
+        if (g('volInfo'))     document.getElementById('vol-info').textContent   = g('volInfo');
+        if (g('volStats'))    document.getElementById('vol-stats').textContent  = g('volStats');
+        if (g('volInvite'))   document.getElementById('vol-invite').textContent = g('volInvite');
+        if (g('volWhatsapp')) document.getElementById('vol-link').href          = g('volWhatsapp');
+      })();
+    </script>
 
 
 

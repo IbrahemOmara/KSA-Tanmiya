@@ -7,77 +7,155 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../CSS/Base.css">
   <style>
-    body{background:#f5f7fb}
-    .card-admin{border-radius:8px}
-    label{font-weight:600}
+    body { background: #f5f7fb; }
+    .section-block { background: #fff; border: 1px solid #007c8b; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    .section-title-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+    .section-title-row input { flex: 1; }
+    .point-row { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+    .point-row input { flex: 1; }
+    .btn-del { color: #dc3545; background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 0 4px; line-height: 1; }
+    .btn-del:hover { color: #a00; }
+    #add-section { border: 2px dashed #007c8b; background: #f0fafa; color: #007c8b; width: 100%; padding: 10px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-bottom: 16px; }
+    #add-section:hover { background: #d6f0f0; }
+    .save-bar { position: sticky; bottom: 0; background: #f5f7fb; padding: 12px 0; border-top: 1px solid #ddd; display: flex; gap: 10px; align-items: center; margin-top: 8px; }
   </style>
 </head>
 <body>
-  <div class="container" style="margin-top:24px;">
+  <div class="container" style="margin-top:24px; max-width:780px;">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3>الإحصائيات والمساعدات - إدارة</h3>
-      <div>
-        <a class="btn btn-secondary" href="/HTML/admin-crud.html">العودة</a>
-      </div>
+      <a class="btn btn-secondary" href="/HTML/admin-crud.html">العودة</a>
     </div>
 
-    <div class="card mb-4" style="border: 1px solid #007c8b;">
-      <div class="card-header text-white" style="background-color: #007c8b;">
-        محتوى الإحصائيات والمساعدات (يظهر في الصفحة)
-      </div>
-      <div class="card-body">
-        <textarea id="statics-text" class="form-control" rows="15" placeholder="اكتب محتوى الإحصائيات هنا (يمكن استخدام HTML)..."></textarea>
-        <div class="mt-2 d-flex justify-content-end">
-          <button id="save-statics" class="btn btn-success">حفظ الإحصائيات</button>
-        </div>
-        <div id="statics-msg" class="mt-2"></div>
-      </div>
+    <p class="text-muted mb-3">أضف أقساماً رئيسية (مثل: لعام ٢٠٢٤م) ثم أضف نقاطاً تحت كل قسم.</p>
+
+    <div id="sections-container"></div>
+
+    <button id="add-section">+ إضافة قسم رئيسي جديد</button>
+
+    <div class="save-bar">
+      <button id="save-all" class="btn btn-success px-4">حفظ جميع التغييرات</button>
+      <span id="save-msg"></span>
     </div>
   </div>
 
   <script>
-    const defaultHTML = `<h4>الإحصائيات و المساعدات لعام ٢٠٢٣م</h4>
-<ul>
-    <li>
-        برامج و انشطه الجمعية: برنامج واحد
-    </li>
-    <li>
-        عدد المستفيدين: تجاوز عدد المستفيدين ما يقارب من ٩١ مستفيد
-    </li>
-</ul>
+    const defaultData = [
+      {
+        title: 'الإحصائيات و المساعدات لعام ٢٠٢٣م',
+        points: [
+          'برامج و انشطه الجمعية: برنامج واحد',
+          'عدد المستفيدين: تجاوز عدد المستفيدين ما يقارب من ٩١ مستفيد'
+        ]
+      },
+      {
+        title: 'الإحصائيات و المساعدات لعام ٢٠٢٤م',
+        points: [
+          'برامج و انشطه الجمعية: ٧ برامج و ٨ دورات و ٣ مبادرات',
+          'عدد المستفيدين: تجاوز عدد المستفيدين ما يقارب من ٣٢٥٠ مستفيد بقيمه ٣٥٨,٣٠٠ ريال'
+        ]
+      }
+    ];
 
-<h4>الإحصائيات و المساعدات لعام ٢٠٢٤م</h4>
-<ul>
-    <li>
-        برامج و انشطه الجمعية: ٧ برامج و ٨ دورات و ٣ مبادرات
-    </li>
-    <li>
-        عدد المستفيدين: تجاوز عدد المستفيدين ما يقارب من ٣٢٥٠ مستفيد بقيمه ٣٥٨,٣٠٠ ريال
-    </li>
-</ul>`;
+    let data = [];
 
-    function loadStatics() {
-        let text = localStorage.getItem('staticsData');
-        if(!text) {
-            text = defaultHTML;
-        }
-        document.getElementById('statics-text').value = text;
+    function load() {
+      const saved = localStorage.getItem('staticsJSON');
+      data = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(defaultData));
+      render();
     }
 
-    document.getElementById('save-statics').addEventListener('click', () => {
-        const text = document.getElementById('statics-text').value;
-        const msg = document.getElementById('statics-msg');
-        
-        localStorage.setItem('staticsData', text);
-        msg.innerHTML = '<span class="text-success">تم حفظ البيانات بنجاح محلياً!</span>';
-        
-        setTimeout(() => msg.innerHTML='', 3000);
+    function escHtml(str) {
+      return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function pointRow(si, pi, val) {
+      return `<div class="point-row">
+        <span style="color:#007c8b;font-weight:700">•</span>
+        <input type="text" class="form-control point-input" data-si="${si}" data-pi="${pi}" value="${escHtml(val)}" placeholder="أدخل نقطة...">
+        <button class="btn-del del-point" data-si="${si}" data-pi="${pi}" title="حذف">✕</button>
+      </div>`;
+    }
+
+    function render() {
+      const container = document.getElementById('sections-container');
+      container.innerHTML = '';
+      data.forEach((section, si) => {
+        const block = document.createElement('div');
+        block.className = 'section-block';
+        block.innerHTML = `
+          <div class="section-title-row">
+            <strong style="white-space:nowrap;color:#007c8b">القسم ${si + 1}</strong>
+            <input type="text" class="form-control section-title" data-si="${si}" value="${escHtml(section.title)}" placeholder="عنوان القسم...">
+            <button class="btn-del del-section" data-si="${si}" title="حذف القسم">✕</button>
+          </div>
+          <div class="points-list" data-si="${si}">
+            ${section.points.map((p, pi) => pointRow(si, pi, p)).join('')}
+          </div>
+          <button class="btn btn-sm btn-outline-primary add-point mt-2" data-si="${si}">+ إضافة نقطة</button>
+        `;
+        container.appendChild(block);
+      });
+
+      container.querySelectorAll('.section-title').forEach(inp => {
+        inp.addEventListener('input', () => { data[+inp.dataset.si].title = inp.value; });
+      });
+      container.querySelectorAll('.point-input').forEach(inp => {
+        inp.addEventListener('input', () => { data[+inp.dataset.si].points[+inp.dataset.pi] = inp.value; });
+      });
+      container.querySelectorAll('.del-section').forEach(btn => {
+        btn.addEventListener('click', () => {
+          data.splice(+btn.dataset.si, 1);
+          render();
+        });
+      });
+      container.querySelectorAll('.del-point').forEach(btn => {
+        btn.addEventListener('click', () => {
+          data[+btn.dataset.si].points.splice(+btn.dataset.pi, 1);
+          render();
+        });
+      });
+      container.querySelectorAll('.add-point').forEach(btn => {
+        btn.addEventListener('click', () => {
+          data[+btn.dataset.si].points.push('');
+          render();
+          const list = container.querySelector(`.points-list[data-si="${btn.dataset.si}"]`);
+          const inputs = list.querySelectorAll('.point-input');
+          if (inputs.length) inputs[inputs.length - 1].focus();
+        });
+      });
+    }
+
+    function buildHtml() {
+      return data.map(s => {
+        const items = s.points.filter(p => p.trim()).map(p => `    <li>${p}</li>`).join('\n');
+        return `<h4>${s.title}</h4>\n<ul>\n${items}\n</ul>`;
+      }).join('\n\n');
+    }
+
+    document.getElementById('add-section').addEventListener('click', () => {
+      data.push({ title: '', points: [''] });
+      render();
+      const blocks = document.querySelectorAll('.section-block');
+      if (blocks.length) blocks[blocks.length - 1].scrollIntoView({ behavior: 'smooth' });
     });
 
-    loadStatics();
+    document.getElementById('save-all').addEventListener('click', () => {
+      // sync any un-blurred inputs
+      document.querySelectorAll('.section-title').forEach(inp => { data[+inp.dataset.si].title = inp.value; });
+      document.querySelectorAll('.point-input').forEach(inp => { data[+inp.dataset.si].points[+inp.dataset.pi] = inp.value; });
+
+      localStorage.setItem('staticsJSON', JSON.stringify(data));
+      localStorage.setItem('staticsData', buildHtml());
+
+      const msg = document.getElementById('save-msg');
+      msg.innerHTML = '<span class="text-success fw-bold">✓ تم الحفظ بنجاح!</span>';
+      setTimeout(() => msg.innerHTML = '', 3000);
+    });
+
+    load();
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/JS/custom-alert.js"></script>
 </body>
 </html>

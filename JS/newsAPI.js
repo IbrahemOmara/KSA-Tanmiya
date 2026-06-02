@@ -52,15 +52,16 @@ fetch("https://tanmia.nasatechnology.net/api/Our_news")
     activeNews.forEach(news => {
         const newsCard = document.createElement("div");
         newsCard.className = "col";
+        const imgSrc = news.newsUrl || news.NewsUrl || '/images/news1.png';
         newsCard.innerHTML = `
         <div class="card h-100">
-            <img src="/images/news1.png" class="card-img-top" alt="...">
+            <img src="${imgSrc}" class="card-img-top" alt="...">
             <div class="card-body">
             <h5 class="card-title">${news.newsTitle}</h5>
             <a href="#overlay" class="read-more"
                 data-title="${news.newsTitle}"
                 data-content="${news.newsDescription}"
-                data-img="/images/news1.png">قراءة المزيد..</a>
+                data-img="${imgSrc}">قراءة المزيد..</a>
             </div>
         </div>
         `;

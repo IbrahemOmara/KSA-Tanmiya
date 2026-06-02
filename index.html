@@ -67,8 +67,8 @@
                             <li class="dropdown-submenu">
                             <a class="dropdown-item dropdown-toggle " href="#">الجمعية العمومية</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item " href="./members.html">أعضاء الجمعية العمومية</a></li>
-                                <li><a class="dropdown-item " href="./minute.html">محاضر الجمعية العمومية</a></li>
+                                <li><a class="dropdown-item " href="/HTML/members.html">أعضاء الجمعية العمومية</a></li>
+                                <li><a class="dropdown-item " href="/HTML/minute.html">محاضر الجمعية العمومية</a></li>
                             </ul>
                             </li>
 
@@ -79,8 +79,8 @@
                             <li class="dropdown-submenu">
                             <a class="dropdown-item dropdown-toggle " href="#">التقارير</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item  " href="./financial-report.html">التقارير المالية</a></li>
-                                <li><a class="dropdown-item " href="./annual-report.html">التقارير السنوية</a></li>
+                                <li><a class="dropdown-item  " href="/HTML/financial-report.html">التقارير المالية</a></li>
+                                <li><a class="dropdown-item " href="/HTML/annual-report.html">التقارير السنوية</a></li>
                             </ul>
                             </li>
                             <li><a class="dropdown-item " href="/HTML/organizational-structure.html"> الهيكل التنظيمي</a></li>
@@ -136,13 +136,13 @@
             <div class="right" data-aos="fade-right" data-aos-delay="500">
                 <div class="num-1">
                     <i class="fa-regular fa-heart fa-beat fa-xl"></i>
-                    <h2>709</h2>
+                    <h2 id="home-volunteers">709</h2>
                     <span>متطوع</span>
                 </div>
                 <div class="num-2">
                     <i class="fa-regular fa-star fa-xl"></i>
-                    <h2>3,250</h2>
-                    <span>مستفيد في ٢٠٢٤م</span>
+                    <h2 id="home-beneficiaries">3,250</h2>
+                    <span>مستفيد في <span id="home-year">٢٠٢٤م</span></span>
                 </div>
             </div>
 
@@ -155,10 +155,10 @@
                 </div>
                 <div class="carousel-inner" data-aos="zoom-in">
                     <div class="carousel-item active">
-                    <img src="/images/slide1.jpg" class="d-block w-100" alt="...">
+                    <img id="home-slide1" src="/images/slide1.jpg" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                    <img src="/images/slide2.jpg" class="d-block w-100" alt="...">
+                    <img id="home-slide2" src="/images/slide2.jpg" class="d-block w-100" alt="...">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -378,5 +378,17 @@
         });
     </script>
 <script src="/JS/custom-alert.js"></script>
+<script>
+  (function() {
+    const stats = JSON.parse(localStorage.getItem('homeStats') || '{}');
+    if (stats.volunteers) document.getElementById('home-volunteers').textContent = Number(stats.volunteers).toLocaleString('ar-SA');
+    if (stats.beneficiaries) document.getElementById('home-beneficiaries').textContent = Number(stats.beneficiaries).toLocaleString('ar-SA');
+    if (stats.year) document.getElementById('home-year').textContent = stats.year;
+    const slide1 = localStorage.getItem('homeSlide1');
+    if (slide1) document.getElementById('home-slide1').src = slide1;
+    const slide2 = localStorage.getItem('homeSlide2');
+    if (slide2) document.getElementById('home-slide2').src = slide2;
+  })();
+</script>
 </body>
 </html>
