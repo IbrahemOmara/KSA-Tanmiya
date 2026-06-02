@@ -206,8 +206,6 @@ header{
     transition: 0.5s;
 }
 .sec3 .sec3-cards .card:hover{
-    border-radius: 0px;
-    border: dashed 2px #89a358;
     scale: 1.1;
 }
 

@@ -68,7 +68,7 @@
   <script>
     // الموارد المستخرجة من الصورة المرفقة
     const resources = [
-      'Annual_report','Association_Member','Association_Minute','Board_of_Director','Disclosure','Financial_report','Membership','Our_news','Partners_of_Success','Policies_and_regulations','Program','Satisfaction_measurement','service','Strategic_and_operational_objectivesController', 'Statics'
+      'About','Branches','Ceo','Home','OrgStructure','Volunteer','Annual_report','Association_Member','Association_Minute','Board_of_Director','Disclosure','Financial_report','Membership','Our_news','Partners_of_Success','Policies_and_regulations','Program','Satisfaction_measurement','service','Strategic_and_operational_objectivesController', 'Statics'
     ];
 
     const resourcesContainer = document.getElementById('resources');
@@ -86,7 +86,43 @@
         const el = document.createElement('div');
         el.className='resource-card';
         // For Annual_report, wire to specialized handlers
-        if(r === 'Annual_report'){
+        if(r === 'About'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-about.html'" tabindex="0">
+              <strong>من نحن (رؤيتنا / رسالتنا / أهدافنا / قيمنا)</strong>
+            </div>
+          `;
+        } else if(r === 'Branches'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-branches.html'" tabindex="0">
+              <strong>الفروع والمكاتب واللجان</strong>
+            </div>
+          `;
+        } else if(r === 'Ceo'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-ceo.html'" tabindex="0">
+              <strong>المدير التنفيذي (الاسم / الهاتف / الايميل / الصورة)</strong>
+            </div>
+          `;
+        } else if(r === 'Volunteer'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-volunteer.html'" tabindex="0">
+              <strong>التطوع (النص / الإحصائية / رابط واتساب)</strong>
+            </div>
+          `;
+        } else if(r === 'OrgStructure'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-org-structure.html'" tabindex="0">
+              <strong>الهيكل التنظيمي (الإدارة / مجلس الإدارة / الجمعية العمومية)</strong>
+            </div>
+          `;
+        } else if(r === 'Home'){
+          el.innerHTML = `
+            <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-home.html'" tabindex="0">
+              <strong>الصفحة الرئيسية (الصور والأرقام)</strong>
+            </div>
+          `;
+        } else if(r === 'Annual_report'){
           el.innerHTML = `
             <div class="card-inner" role="button" onclick="window.location.href='/HTML/admin-annual-reports.html'" tabindex="0">
               <strong>التقارير السنوية</strong>
